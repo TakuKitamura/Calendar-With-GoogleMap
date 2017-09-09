@@ -16,6 +16,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     let weekArray = ["日", "月", "火", "水", "木", "金", "土"]
     let cellMargin: CGFloat = 2.0
     
+    private var beforeMonthButton: UIButton!
+    private var nextMonthButton: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,9 +45,47 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         myCollectionView.delegate = self
         myCollectionView.dataSource = self
         
+        beforeMonthButton = UIButton()
+        
+        beforeMonthButton.frame = CGRect(x: 80, y: 115, width: 20, height: 20)
+        
+        beforeMonthButton.backgroundColor = UIColor.gray
+        
+        beforeMonthButton.setTitle("<", for: .normal)
+        
+        beforeMonthButton.addTarget(self, action: #selector(ViewController.changeBeforeMonth(sender: )), for: .touchUpInside)
+        
+        myCollectionView.backgroundColor = UIColor.clear
+        
+        myCollectionView.delegate = self
+        myCollectionView.dataSource = self
+        
+        nextMonthButton = UIButton()
+        
+        nextMonthButton.frame = CGRect(x: 280, y: 115, width: 20, height: 20)
+        
+        nextMonthButton.backgroundColor = UIColor.gray
+        
+        nextMonthButton.setTitle(">", for: .normal)
+        
+        nextMonthButton.addTarget(self, action: #selector(ViewController.changeNextMonth(sender: )), for: .touchUpInside)
+        
+        
         self.view.addSubview(myCollectionView)
+        self.view.addSubview(beforeMonthButton)
+        self.view.addSubview(nextMonthButton)
         
         
+        
+        
+    }
+    
+    func changeBeforeMonth(sender: Any) { // buttonの色を変化させるメソッド
+        beforeMonthButton.backgroundColor = UIColor.darkGray
+    }
+    
+    func changeNextMonth(sender: Any) { // buttonの色を変化させるメソッド
+        nextMonthButton.backgroundColor = UIColor.darkGray
     }
     
     override func didReceiveMemoryWarning() {
@@ -93,7 +134,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         let nowDate = NSDate()
         let comp = Calendar.current.dateComponents([.year, .month, .day], from:nowDate as Date)
-        headerView.textLabel?.text = "\(comp.year!)年\(comp.month!)月\(comp.day!)日"
+        headerView.textLabel?.text = "\(comp.year!)年\(comp.month!)月"
         headerView.textLabel?.textColor = UIColor.gray
         
         return headerView
