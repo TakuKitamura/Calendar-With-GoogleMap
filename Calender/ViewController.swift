@@ -20,6 +20,38 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     private var nextMonthButton: UIButton!
     private var testButton: UIButton!
     
+    private var dateButton1: UIButton!
+    private var dateButton2: UIButton!
+    private var dateButton3: UIButton!
+    private var dateButton4: UIButton!
+    private var dateButton5: UIButton!
+    private var dateButton6: UIButton!
+    private var dateButton7: UIButton!
+    private var dateButton8: UIButton!
+    private var dateButton9: UIButton!
+    private var dateButton10: UIButton!
+    private var dateButton11: UIButton!
+    private var dateButton12: UIButton!
+    private var dateButton13: UIButton!
+    private var dateButton14: UIButton!
+    private var dateButton15: UIButton!
+    private var dateButton16: UIButton!
+    private var dateButton17: UIButton!
+    private var dateButton18: UIButton!
+    private var dateButton19: UIButton!
+    private var dateButton20: UIButton!
+    private var dateButton21: UIButton!
+    private var dateButton22: UIButton!
+    private var dateButton23: UIButton!
+    private var dateButton24: UIButton!
+    private var dateButton25: UIButton!
+    private var dateButton26: UIButton!
+    private var dateButton27: UIButton!
+    private var dateButton28: UIButton!
+    private var dateButton29: UIButton!
+    private var dateButton30: UIButton!
+    private var dateButton31: UIButton!
+    
     private var showedYear = Calendar.current.dateComponents([.year], from:selectedDate as Date).year!
     private var showedMonth = Calendar.current.dateComponents([.month], from:selectedDate as Date).month!
 //    private var showedDay = Calendar.current.dateComponents([.day], from:selectedDate as Date).day!
@@ -54,7 +86,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         beforeMonthButton = UIButton()
         
 //        self.view.frame.width
-        print(myCollectionView.frame.minY)
+
         beforeMonthButton.frame = CGRect(x: self.view.frame.width / 2 - 100, y: 113, width: 20, height: 20)
         
         beforeMonthButton.backgroundColor = UIColor.gray
@@ -213,6 +245,236 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 cell.textLabel?.text = ""
             }
             
+            if(cell.textLabel?.text != ""){
+                print(cell.textLabel!.text!)
+                
+                switch cell.textLabel!.text! {
+                case "1" :
+                    dateButton1 = UIButton()
+                    dateButton1.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton1.backgroundColor = UIColor.red
+                    dateButton1.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton1)
+                    
+                case "2" :
+                    dateButton2 = UIButton()
+                    dateButton2.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton2.backgroundColor = UIColor.red
+                    dateButton2.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton2)
+                    
+                case "3" :
+                    dateButton3 = UIButton()
+                    dateButton3.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton3.backgroundColor = UIColor.red
+                    dateButton3.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton3)
+                    
+                case "4" :
+                    dateButton4 = UIButton()
+                    dateButton4.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton4.backgroundColor = UIColor.red
+                    dateButton4.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton4)
+                    
+                case "5" :
+                    dateButton5 = UIButton()
+                    dateButton5.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton5.backgroundColor = UIColor.red
+                    dateButton5.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton5)
+                    
+                case "6" :
+                    dateButton6 = UIButton()
+                    dateButton6.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton6.backgroundColor = UIColor.red
+                    dateButton6.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton6)
+                    
+                case "7" :
+                    dateButton7 = UIButton()
+                    dateButton7.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton7.backgroundColor = UIColor.red
+                    dateButton7.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton7)
+                    
+                case "8" :
+                    dateButton8 = UIButton()
+                    dateButton8.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton8.backgroundColor = UIColor.red
+                    dateButton8.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton8)
+                    
+                case "9" :
+                    dateButton9 = UIButton()
+                    dateButton9.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton9.backgroundColor = UIColor.red
+                    dateButton9.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton9)
+                    
+                case "10" :
+                    dateButton10 = UIButton()
+                    dateButton10.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton10.backgroundColor = UIColor.red
+                    dateButton10.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton10)
+                    
+                case "11" :
+                    dateButton11 = UIButton()
+                    dateButton11.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton11.backgroundColor = UIColor.red
+                    dateButton11.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton11)
+                    
+                case "12" :
+                    dateButton12 = UIButton()
+                    dateButton12.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton12.backgroundColor = UIColor.red
+                    dateButton12.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton12)
+                    
+                case "13" :
+                    dateButton13 = UIButton()
+                    dateButton13.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton13.backgroundColor = UIColor.red
+                    dateButton13.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton13)
+                    
+                case "14" :
+                    dateButton14 = UIButton()
+                    dateButton14.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton14.backgroundColor = UIColor.red
+                    dateButton14.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton14)
+                    
+                case "15" :
+                    dateButton15 = UIButton()
+                    dateButton15.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton15.backgroundColor = UIColor.red
+                    dateButton15.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton15)
+                    
+                case "16" :
+                    dateButton16 = UIButton()
+                    dateButton16.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton16.backgroundColor = UIColor.red
+                    dateButton16.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton16)
+                    
+                case "17" :
+                    dateButton17 = UIButton()
+                    dateButton17.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton17.backgroundColor = UIColor.red
+                    dateButton17.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton17)
+                    
+                case "18" :
+                    dateButton18 = UIButton()
+                    dateButton18.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton18.backgroundColor = UIColor.red
+                    dateButton18.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton18)
+                    
+                case "19" :
+                    dateButton19 = UIButton()
+                    dateButton19.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton19.backgroundColor = UIColor.red
+                    dateButton19.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton19)
+                    
+                case "20" :
+                    dateButton20 = UIButton()
+                    dateButton20.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton20.backgroundColor = UIColor.red
+                    dateButton20.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton20)
+                    
+                case "21" :
+                    dateButton21 = UIButton()
+                    dateButton21.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton21.backgroundColor = UIColor.red
+                    dateButton21.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton21)
+                    
+                case "22" :
+                    dateButton22 = UIButton()
+                    dateButton22.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton22.backgroundColor = UIColor.red
+                    dateButton22.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton22)
+                    
+                case "23" :
+                    dateButton23 = UIButton()
+                    dateButton23.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton23.backgroundColor = UIColor.red
+                    dateButton23.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton23)
+                    
+                case "24" :
+                    dateButton24 = UIButton()
+                    dateButton24.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton24.backgroundColor = UIColor.red
+                    dateButton24.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton24)
+                    
+                case "25" :
+                    dateButton25 = UIButton()
+                    dateButton25.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton25.backgroundColor = UIColor.red
+                    dateButton25.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton25)
+                    
+                case "26" :
+                    dateButton26 = UIButton()
+                    dateButton26.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton26.backgroundColor = UIColor.red
+                    dateButton26.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton26)
+                    
+                case "27" :
+                    dateButton27 = UIButton()
+                    dateButton27.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton27.backgroundColor = UIColor.red
+                    dateButton27.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton27)
+                    
+                case "28" :
+                    dateButton28 = UIButton()
+                    dateButton28.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton28.backgroundColor = UIColor.red
+                    dateButton28.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton28)
+                    
+                case "29" :
+                    dateButton29 = UIButton()
+                    dateButton29.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton29.backgroundColor = UIColor.red
+                    dateButton29.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton29)
+                    
+                case "30" :
+                    dateButton30 = UIButton()
+                    dateButton30.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton30.backgroundColor = UIColor.red
+                    dateButton30.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton30)
+                    
+                case "31" :
+                    dateButton31 = UIButton()
+                    dateButton31.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton31.backgroundColor = UIColor.red
+                    dateButton31.addTarget(self, action: #selector(changeColor(sender: )), for: .touchUpInside)
+                    view.addSubview(dateButton31)
+                    
+                default:
+                    print("dateButton ERROR !")
+                    
+                }
+                
+            
+            
+            }
+            
             
             
         default:
@@ -222,6 +484,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         return cell
     }
+    
+    func changeColor(sender: Any) { // buttonの色を変化させるメソッド
+//        dateButton.backgroundColor = UIColor.darkGray
+        print("HELLO")
+    }
+    
     
     //セルのサイズを設定
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
