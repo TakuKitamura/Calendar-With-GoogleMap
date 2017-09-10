@@ -15,12 +15,20 @@ var numberOfItems: Int!
 
 class DateManager: NSObject {
     
+    private var showedYear = Calendar.current.dateComponents([.year], from:selectedDate as Date).year!
+    private var showedMonth = Calendar.current.dateComponents([.month], from:selectedDate as Date).month!
+    //    private var showedDay = Calendar.current.dateComponents([.day], from:selectedDate as Date).day!
+    
+    func setShowDate(setYear : Int, setMonth : Int) {
+        self.showedYear = setYear
+        self.showedMonth = setMonth
+        currentMonthOfDates = [NSDate]()
+    }
+    
     
     //月ごとのセルの数を返すメソッド
     func daysAcquisition() -> Int {
-        
         let rangeOfWeeks = Calendar.current.range(of: .weekOfMonth, in: .month, for: firstDateOfMonth() as Date)
-        
         let numberOfWeeks = Int((rangeOfWeeks?.count)!) //月が持つ週の数
         numberOfItems = numberOfWeeks * daysPerWeek //週の数×列の数
         return numberOfItems
@@ -30,9 +38,12 @@ class DateManager: NSObject {
     func firstDateOfMonth() -> Date {
         
         var components = Calendar.current.dateComponents([.year, .month, .day], from:selectedDate as Date)
+        components.year = self.showedYear
+        components.month = self.showedMonth
         components.day = 1
         
         let firstDateMonth = Calendar.current.date(from: components)!
+        
         return firstDateMonth
     }
     
