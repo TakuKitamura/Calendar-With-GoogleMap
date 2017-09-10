@@ -10,14 +10,20 @@ import UIKit
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    var myCollectionView : UICollectionView!
-    let dateManager = DateManager()
+    private var myCollectionView : UICollectionView!
+    private let dateManager = DateManager()
     
-    let weekArray = ["日", "月", "火", "水", "木", "金", "土"]
-    let cellMargin: CGFloat = 2.0
+    private let weekArray = ["日", "月", "火", "水", "木", "金", "土"]
+    private let cellMargin: CGFloat = 2.0
     
     private var beforeMonthButton: UIButton!
     private var nextMonthButton: UIButton!
+    private var testButton: UIButton!
+    
+    private var showedYear = Calendar.current.dateComponents([.year], from:selectedDate as Date).year!
+    private var showedMonth = Calendar.current.dateComponents([.month], from:selectedDate as Date).month!
+//    private var showedDay = Calendar.current.dateComponents([.day], from:selectedDate as Date).day!
+    
     
     
     override func viewDidLoad() {
@@ -47,7 +53,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         beforeMonthButton = UIButton()
         
-        beforeMonthButton.frame = CGRect(x: 80, y: 115, width: 20, height: 20)
+//        self.view.frame.width
+        print(myCollectionView.frame.minY)
+        beforeMonthButton.frame = CGRect(x: self.view.frame.width / 2 - 100, y: 113, width: 20, height: 20)
         
         beforeMonthButton.backgroundColor = UIColor.gray
         
@@ -62,7 +70,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         nextMonthButton = UIButton()
         
-        nextMonthButton.frame = CGRect(x: 280, y: 115, width: 20, height: 20)
+        nextMonthButton.frame = CGRect(x: self.view.frame.width / 2 + 90, y: 113, width: 20, height: 20)
         
         nextMonthButton.backgroundColor = UIColor.gray
         
@@ -80,12 +88,31 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
     }
     
-    func changeBeforeMonth(sender: Any) { // buttonの色を変化させるメソッド
+    func changeBeforeMonth(sender: Any) {
         beforeMonthButton.backgroundColor = UIColor.darkGray
+        
+        self.showedYear = self.showedMonth == 1 ? self.showedYear - 1 : self.showedYear
+        
+        self.showedMonth = self.showedMonth > 1 ? self.showedMonth - 1 : 12
+        
+        dateManager.setShowDate(setYear: self.showedYear, setMonth: self.showedMonth)
+        
+        
+        loadView()
+        viewDidLoad()
     }
     
-    func changeNextMonth(sender: Any) { // buttonの色を変化させるメソッド
+    func changeNextMonth(sender: Any) {
         nextMonthButton.backgroundColor = UIColor.darkGray
+        
+        self.showedYear = self.showedMonth == 12 ? self.showedYear + 1 : self.showedYear
+        
+        self.showedMonth = self.showedMonth < 12 ? self.showedMonth + 1 : 1
+        
+        dateManager.setShowDate(setYear: self.showedYear, setMonth: self.showedMonth)
+    
+        loadView()
+        viewDidLoad()
     }
     
     override func didReceiveMemoryWarning() {
@@ -131,10 +158,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView
     {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Section", for: indexPath) as! CollectionReusableView
-        
-        let nowDate = NSDate()
-        let comp = Calendar.current.dateComponents([.year, .month, .day], from:nowDate as Date)
-        headerView.textLabel?.text = "\(comp.year!)年\(comp.month!)月"
+
+//        let nowDate = NSDate()
+//        let comp = Calendar.current.dateComponents([.year, .month, .day], from:nowDate as Date)
+        headerView.textLabel?.text =  "\(showedYear) / \(NSString(format: "%02d", showedMonth))"
         headerView.textLabel?.textColor = UIColor.gray
         
         return headerView
@@ -146,6 +173,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell : CustomUICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath as IndexPath) as! CustomUICollectionViewCell
+        
         
         // Section毎にCellのプロパティを変える.
         switch(indexPath.section){
@@ -176,6 +204,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             //numberOfItems = numberOfItems + dateRange!.count
             
             cell.textLabel?.text = self.dateManager.conversionDateFormat(indexPath: indexPath)
+            
             
             if (ordinalityOfFirstDay2! - 1) > indexPath.row{
                 cell.textLabel?.text = ""
