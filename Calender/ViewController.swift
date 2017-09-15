@@ -54,6 +54,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+         self.title = "カレンダー"
 
         self.automaticallyAdjustsScrollViewInsets = false
 
@@ -187,7 +189,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
 //        let nowDate = NSDate()
 //        let comp = Calendar.current.dateComponents([.year, .month, .day], from:nowDate as Date)
-        headerView.textLabel?.text =  "\(showedYear) / \(NSString(format: "%02d", showedMonth))"
+        
+        headerView.textLabel?.text =  "\(showedYear)年\(showedMonth)月"
         headerView.textLabel?.textColor = UIColor.gray
 
         return headerView
@@ -239,12 +242,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             }
 
             if(cell.textLabel?.text != ""){
-
+                
                 switch cell.textLabel!.text! {
                 case "1" :
                     dateButton1 = UIButton()
                     dateButton1.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton1.backgroundColor = UIColor.red
+                    dateButton1.tag = 1
                     dateButton1.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton1)
 
@@ -252,6 +256,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton2 = UIButton()
                     dateButton2.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton2.backgroundColor = UIColor.red
+                    dateButton2.tag = 2
                     dateButton2.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton2)
 
@@ -259,6 +264,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton3 = UIButton()
                     dateButton3.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton3.backgroundColor = UIColor.red
+                    dateButton3.tag = 3
                     dateButton3.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton3)
 
@@ -266,6 +272,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton4 = UIButton()
                     dateButton4.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton4.backgroundColor = UIColor.red
+                    dateButton4.tag = 4
                     dateButton4.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton4)
 
@@ -273,6 +280,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton5 = UIButton()
                     dateButton5.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton5.backgroundColor = UIColor.red
+                    dateButton5.tag = 5
                     dateButton5.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton5)
 
@@ -280,6 +288,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton6 = UIButton()
                     dateButton6.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton6.backgroundColor = UIColor.red
+                    dateButton6.tag = 6
                     dateButton6.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton6)
 
@@ -287,12 +296,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton7 = UIButton()
                     dateButton7.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton7.backgroundColor = UIColor.red
+                    dateButton7.tag = 7
                     dateButton7.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton7)
 
                 case "8" :
                     dateButton8 = UIButton()
                     dateButton8.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton8.tag = 8
                     // dateButton8.backgroundColor = UIColor.red
                     dateButton8.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton8)
@@ -301,6 +312,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton9 = UIButton()
                     dateButton9.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton9.backgroundColor = UIColor.red
+                    dateButton9.tag = 9
                     dateButton9.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton9)
 
@@ -308,6 +320,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton10 = UIButton()
                     dateButton10.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton10.backgroundColor = UIColor.red
+                    dateButton10.tag = 10
                     dateButton10.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton10)
 
@@ -315,6 +328,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton11 = UIButton()
                     dateButton11.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton11.backgroundColor = UIColor.red
+                    dateButton11.tag = 11
                     dateButton11.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton11)
 
@@ -322,6 +336,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton12 = UIButton()
                     dateButton12.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton12.backgroundColor = UIColor.red
+                    dateButton12.tag = 12
                     dateButton12.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton12)
 
@@ -329,6 +344,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton13 = UIButton()
                     dateButton13.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton13.backgroundColor = UIColor.red
+                    dateButton13.tag = 13
                     dateButton13.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton13)
 
@@ -336,6 +352,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton14 = UIButton()
                     dateButton14.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton14.backgroundColor = UIColor.red
+                    dateButton14.tag = 14
                     dateButton14.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton14)
 
@@ -343,6 +360,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton15 = UIButton()
                     dateButton15.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton15.backgroundColor = UIColor.red
+                    dateButton15.tag = 15
                     dateButton15.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton15)
 
@@ -350,6 +368,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton16 = UIButton()
                     dateButton16.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton16.backgroundColor = UIColor.red
+                    dateButton16.tag = 16
                     dateButton16.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton16)
 
@@ -357,6 +376,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton17 = UIButton()
                     dateButton17.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton17.backgroundColor = UIColor.red
+                    dateButton17.tag = 17
                     dateButton17.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton17)
 
@@ -364,6 +384,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton18 = UIButton()
                     dateButton18.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton18.backgroundColor = UIColor.red
+                    dateButton18.tag = 18
                     dateButton18.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton18)
 
@@ -371,6 +392,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton19 = UIButton()
                     dateButton19.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton19.backgroundColor = UIColor.red
+                    dateButton19.tag = 19
                     dateButton19.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton19)
 
@@ -378,6 +400,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton20 = UIButton()
                     dateButton20.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton20.backgroundColor = UIColor.red
+                    dateButton20.tag = 20
                     dateButton20.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton20)
 
@@ -385,6 +408,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton21 = UIButton()
                     dateButton21.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton21.backgroundColor = UIColor.red
+                    dateButton21.tag = 21
                     dateButton21.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton21)
 
@@ -392,6 +416,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton22 = UIButton()
                     dateButton22.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton22.backgroundColor = UIColor.red
+                    dateButton22.tag = 22
                     dateButton22.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton22)
 
@@ -399,6 +424,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton23 = UIButton()
                     dateButton23.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton23.backgroundColor = UIColor.red
+                    dateButton23.tag = 23
                     dateButton23.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton23)
 
@@ -406,12 +432,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton24 = UIButton()
                     dateButton24.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton24.backgroundColor = UIColor.red
+                    dateButton24.tag = 24
                     dateButton24.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton24)
 
                 case "25" :
                     dateButton25 = UIButton()
                     dateButton25.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
+                    dateButton25.tag = 25
                     // dateButton25.backgroundColor = UIColor.red
                     dateButton25.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton25)
@@ -420,6 +448,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton26 = UIButton()
                     dateButton26.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton26.backgroundColor = UIColor.red
+                    dateButton26.tag = 26
                     dateButton26.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton26)
 
@@ -427,6 +456,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton27 = UIButton()
                     dateButton27.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton27.backgroundColor = UIColor.red
+                    dateButton27.tag = 27
                     dateButton27.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton27)
 
@@ -434,6 +464,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton28 = UIButton()
                     dateButton28.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton28.backgroundColor = UIColor.red
+                    dateButton28.tag = 28
                     dateButton28.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton28)
 
@@ -441,6 +472,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton29 = UIButton()
                     dateButton29.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton29.backgroundColor = UIColor.red
+                    dateButton29.tag = 29
                     dateButton29.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton29)
 
@@ -448,6 +480,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton30 = UIButton()
                     dateButton30.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton30.backgroundColor = UIColor.red
+                    dateButton30.tag = 30
                     dateButton30.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton30)
 
@@ -455,6 +488,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                     dateButton31 = UIButton()
                     dateButton31.frame = CGRect(x: cell.frame.midX - 14, y: cell.frame.midY + 86, width: 30, height: 30)
                     // dateButton31.backgroundColor = UIColor.red
+                    dateButton31.tag = 31
                     dateButton31.addTarget(self, action: #selector(changePlaningPage(sender: )), for: .touchUpInside)
                     view.addSubview(dateButton31)
 
@@ -476,10 +510,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
         return cell
     }
+    
+    func createDayButton(Day: Int) {
+        
+    }
 
     func changePlaningPage(sender: Any) {
         // 遷移するViewを定義する.
-
+        let selectedDay = (sender as AnyObject).tag
+        self.planViewController.initSelectedDay(showedYear: self.showedYear, showedMonth: self.showedMonth,  selectedDay: selectedDay!)
         self.navigationController?.pushViewController(planViewController, animated: true)
 
     }
