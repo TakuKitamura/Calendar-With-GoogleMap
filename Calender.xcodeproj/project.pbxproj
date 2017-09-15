@@ -405,7 +405,7 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = 29MJE58ESF;
 				INFOPLIST_FILE = Calender/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = bamboober.Calender;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -419,7 +419,7 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = 29MJE58ESF;
 				INFOPLIST_FILE = Calender/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = bamboober.Calender;
 				PRODUCT_NAME = "$(TARGET_NAME)";
