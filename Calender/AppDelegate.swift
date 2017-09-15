@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  Calender
-//
-//  Created by 喜多村卓 on 2017/09/02.
-//  Copyright © 2017年 喜多村卓. All rights reserved.
-//
 
 import UIKit
 
@@ -12,10 +5,28 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    var planNavigationController: UINavigationController?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        let first: ViewController = ViewController()
+        planNavigationController = UINavigationController(rootViewController: first)
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window!.backgroundColor = UIColor.white
+        window!.rootViewController = planNavigationController
+        window!.makeKeyAndVisible()
         // Override point for customization after application launch.
+        
+        //self.window = UIWindow(frame: UIScreen.main.bounds)
+        //let storyboard:UIStoryboard =  UIStoryboard(name: "Main",bundle:nil)
+        //self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "ViewController") as UIViewController
+
+        //self.window?.rootViewController = planNavigationController
+        //self.window?.makeKeyAndVisible()
+        
+        
         return true
     }
 

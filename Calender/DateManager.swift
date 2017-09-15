@@ -1,10 +1,4 @@
-//
-//  DateManager.swift
-//  test_uikit
-//
-//  Created by FujiiYuji on 2017/05/23.
-//  Copyright © 2017年 Yuji Fujii. All rights reserved.
-//
+
 
 import UIKit
 
