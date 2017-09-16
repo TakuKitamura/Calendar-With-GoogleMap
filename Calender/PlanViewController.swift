@@ -51,6 +51,8 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.dataSource = self
         
         tableView.separatorInset = .zero
+        
+        tableView.tableFooterView = UIView(frame: .zero)
 
         self.view.addSubview(tableView)
 
