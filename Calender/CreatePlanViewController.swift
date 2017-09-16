@@ -2,7 +2,10 @@ import UIKit
 
 class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
-    private var dataList = ["開始","終了"]
+    private var tableView: UITableView!
+    private var datePicker: UIDatePicker!
+    private var startSelectedDate = "2017/09/16 22:00"
+    private var endSelectedDate = "2017/09/17 10:00"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +35,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         planTitleField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         
         // テキストを全消去するボタンを表示
-        planTitleField.clearButtonMode = .always
+        planTitleField.clearButtonMode = .whileEditing
         
         // 改行ボタンの種類を変更
         planTitleField.returnKeyType = .done
@@ -41,7 +44,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         self.view.addSubview(planTitleField)
         
         // UITableView を作成
-        let tableView = UITableView()
+        self.tableView = UITableView()
         
         // サイズと位置調整
         tableView.frame = CGRect(
@@ -52,18 +55,36 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         )
         
         // Delegate設定
-        tableView.delegate = self
+        self.tableView.delegate = self
         
         // DataSource設定
-        tableView.dataSource = self
+        self.tableView.dataSource = self
         
-        tableView.separatorInset = .zero
+        self.tableView.separatorInset = .zero
         
-        tableView.isScrollEnabled = false
+        self.tableView.isScrollEnabled = false
         
-        tableView.tableFooterView = UIView(frame: .zero)
+        self.tableView.tableFooterView = UIView(frame: .zero)
         
-        self.view.addSubview(tableView)
+        self.view.addSubview(self.tableView)
+        
+        // DatePickerを生成する.
+        self.datePicker = UIDatePicker()
+        
+        // datePickerを設定（デフォルトでは位置は画面上部）する.
+        self.datePicker.frame = CGRect(x:0, y:400, width:self.view.frame.width, height:200)
+        self.datePicker.timeZone = NSTimeZone.local
+        self.datePicker.backgroundColor = UIColor.white
+        self.datePicker.layer.cornerRadius = 5.0
+        self.datePicker.layer.shadowOpacity = 0.5
+        
+        // 値が変わった際のイベントを登録する.
+        self.datePicker.addTarget(self, action: #selector(CreatePlanViewController.onDidChangeDate(sender:)), for: .valueChanged)
+        
+        // DataPickerをViewに追加する.
+        self.view.addSubview(self.datePicker)
+
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -108,13 +129,19 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
         // cell.accessoryType = .detailButton
         
-        cell.textLabel?.text = dataList[indexPath.row]
         
-        
-        if indexPath.row == 0{
+        if indexPath.row == 0 {
             let separatorView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 0.4))
             separatorView.backgroundColor = UIColor.lightGray
             cell.addSubview(separatorView)
+            
+            cell.textLabel?.text = "開始"
+            cell.detailTextLabel?.text = self.startSelectedDate
+        }
+        
+        else {
+            cell.textLabel?.text = "終了"
+            cell.detailTextLabel?.text = self.endSelectedDate
         }
 
         /*
@@ -136,14 +163,14 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         //cell.detailTextLabel?.text = "\(indexPath.row + 1)番目のセルの説明"
         */
         
-        cell.detailTextLabel?.text = "\(indexPath.row + 1)番目のセルの説明"
+        
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // セルの数を設定
-        return dataList.capacity
+        return 2
     }
     
     // MARK: - UITableViewDelegate
@@ -157,5 +184,34 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         // セルの高さを設定
         return 50
     }
+    /*
+    func onDidChangeDate(sender: UIDatePicker){
+        // フォーマットを生成.
+        let myDateFormatter: DateFormatter = DateFormatter()
+        myDateFormatter.dateFormat = "yyyy/MM/dd hh:mm"
+        
+        // 日付をフォーマットに則って取得.
+        let mySelectedDate: NSString = myDateFormatter.string(from: sender.date) as NSString
+        self.startSelectedDate = mySelectedDate as String
+        
+        print(self.startSelectedDate)
+        loadView()
+        viewDidLoad()
+        
+    }
+    */
+    internal func onDidChangeDate(sender: UIDatePicker){
+        
+        // フォーマットを生成.
+        let myDateFormatter: DateFormatter = DateFormatter()
+        myDateFormatter.dateFormat = "yyyy/MM/dd hh:mm"
+        
+        // 日付をフォーマットに則って取得.
+        let mySelectedDate: NSString = myDateFormatter.string(from: sender.date) as NSString
+        self.startSelectedDate = mySelectedDate as String
+        
+        print(self.startSelectedDate)
+        self.tableView.reloadData()
 
+    }
 }
