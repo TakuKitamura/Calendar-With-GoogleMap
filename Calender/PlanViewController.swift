@@ -2,6 +2,8 @@ import UIKit
 
 class PlanViewController: UIViewController {
     
+    private let createPlanViewController = CreatePlanViewController()
+    
     private var showedYear = -1
     private var showedMonth = -1
     private var showedDay = -1
@@ -24,15 +26,15 @@ class PlanViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.white
         
-        let addButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: Selector(("clickAddButton")))
+        let addButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(PlanViewController.createPlanButton))
         
         self.navigationItem.setRightBarButtonItems([addButton], animated: true)
         
         
     }
     
-    func addButton(){
-        //searchButtonを押した際の処理を記述
+    func createPlanButton(){
+        self.navigationController?.pushViewController(createPlanViewController, animated: true)
     }
     
     func initSelectedDay(showedYear: Int, showedMonth: Int ,selectedDay: Int) {

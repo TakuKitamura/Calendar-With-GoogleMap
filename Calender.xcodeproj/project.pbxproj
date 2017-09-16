@@ -15,6 +15,7 @@
 		DAC0C5C71F5AD12A00642F1B /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0C5C61F5AD12A00642F1B /* DateManager.swift */; };
 		DAC0C5C91F5AD15100642F1B /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0C5C81F5AD15100642F1B /* Calendar.swift */; };
 		DAC0C5CB1F5AD17500642F1B /* CollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0C5CA1F5AD17500642F1B /* CollectionReusableView.swift */; };
+		DADADA891F6CD309007CE10D /* CreatePlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADA881F6CD309007CE10D /* CreatePlanViewController.swift */; };
 		DAE8818A1F6BD4310015D1C8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE881891F6BD4310015D1C8 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		DAC0C5C61F5AD12A00642F1B /* DateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		DAC0C5C81F5AD15100642F1B /* Calendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		DAC0C5CA1F5AD17500642F1B /* CollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionReusableView.swift; sourceTree = "<group>"; };
+		DADADA881F6CD309007CE10D /* CreatePlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePlanViewController.swift; sourceTree = "<group>"; };
 		DAE881891F6BD4310015D1C8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +106,7 @@
 			children = (
 				DAC0C5981F5AD01900642F1B /* AppDelegate.swift */,
 				DAC0C59A1F5AD01900642F1B /* ViewController.swift */,
+				DADADA881F6CD309007CE10D /* CreatePlanViewController.swift */,
 				DA8C2AD11F657211009570C3 /* PlanViewController.swift */,
 				DAC0C5C61F5AD12A00642F1B /* DateManager.swift */,
 				DAC0C5C81F5AD15100642F1B /* Calendar.swift */,
@@ -264,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DADADA891F6CD309007CE10D /* CreatePlanViewController.swift in Sources */,
 				DAC0C59B1F5AD01900642F1B /* ViewController.swift in Sources */,
 				DAC0C5C71F5AD12A00642F1B /* DateManager.swift in Sources */,
 				DAC0C5991F5AD01900642F1B /* AppDelegate.swift in Sources */,
