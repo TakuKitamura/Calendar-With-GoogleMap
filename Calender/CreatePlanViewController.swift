@@ -2,43 +2,41 @@ import UIKit
 
 class CreatePlanViewController: UIViewController, UITextFieldDelegate {
     
-    private var myTextField: UITextField!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // インスタンス初期化
-        let textField = UITextField()
+        let planTitleField = UITextField()
         
         // サイズ設定
-        textField.frame.size.width = self.view.frame.width - 10
-        textField.frame.size.height = 48
+        planTitleField.frame.size.width = self.view.frame.width - 10
+        planTitleField.frame.size.height = 48
         
         // 位置設定
-        textField.center.x = self.view.center.x
-        textField.center.y = 150
+        planTitleField.center.x = self.view.center.x
+        planTitleField.center.y = 150
         
         // Delegate を設定
-        textField.delegate = self
+        planTitleField.delegate = self
         
         // プレースホルダー
-        textField.placeholder = "タイトル"
+        planTitleField.placeholder = "タイトル"
         
         // 背景色
-        textField.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        planTitleField.backgroundColor = UIColor(white: 0.95, alpha: 1)
         
         // 左の余白
-        textField.leftViewMode = .always
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+        planTitleField.leftViewMode = .always
+        planTitleField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         
         // テキストを全消去するボタンを表示
-        textField.clearButtonMode = .always
+        planTitleField.clearButtonMode = .always
         
         // 改行ボタンの種類を変更
-        textField.returnKeyType = .done
+        planTitleField.returnKeyType = .done
         
         // 画面に追加
-        self.view.addSubview(textField)
+        self.view.addSubview(planTitleField)
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,28 +46,28 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate {
     /* 以下は UITextFieldDelegate のメソッド */
     
     // 改行ボタンを押した時の処理
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ planTitleField: UITextField) -> Bool {
         
         // キーボードを隠す
-        textField.resignFirstResponder()
+        planTitleField.resignFirstResponder()
         return true
     }
     
     // クリアボタンが押された時の処理
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+    func textFieldShouldClear(_ planTitleField: UITextField) -> Bool {
         
         print("Clear")
         return true
     }
     
     // テキストフィールドがフォーカスされた時の処理
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(_ planTitleField: UITextField) -> Bool {
         print("Start")
         return true
     }
     
     // テキストフィールドでの編集が終わろうとするときの処理
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+    func textFieldShouldEndEditing(_ planTitleField: UITextField) -> Bool {
         print("End")
         return true
     }
