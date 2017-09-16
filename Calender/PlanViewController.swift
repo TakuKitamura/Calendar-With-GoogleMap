@@ -50,10 +50,10 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         // DataSource設定
         tableView.dataSource = self
         
-        // 画面に UITableView を追加
+        tableView.separatorInset = .zero
+
         self.view.addSubview(tableView)
-        
-        
+
     }
     
     func createPlanButton(){
@@ -76,16 +76,37 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         // セルを作る
         
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-        //cell.accessoryType = .detailButton
-        cell.textLabel?.text = "セル\(indexPath.row + 1)"
-        cell.detailTextLabel?.text = "\(indexPath.row + 1)番目のセルの説明"
+        // cell.accessoryType = .detailButton
+        
+        if indexPath.row == 0{
+            let separatorView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 0.4))
+            separatorView.backgroundColor = UIColor.lightGray
+            cell.addSubview(separatorView)
+        }
+        
+        if(indexPath.row < 12) {
+            cell.textLabel?.text = "午前\(indexPath.row)時"
+        }
+        
+        else if(indexPath.row == 12) {
+            cell.textLabel?.text = "正午"
+        }
+        
+        else if(indexPath.row < 24) {
+            cell.textLabel?.text = "午後\(indexPath.row % 12)時"
+        }
+        
+        else {
+            cell.textLabel?.text = "午前0時"
+        }
+        //cell.detailTextLabel?.text = "\(indexPath.row + 1)番目のセルの説明"
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // セルの数を設定
-        return 10
+        return 25
     }
     
     // MARK: - UITableViewDelegate
@@ -97,12 +118,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // セルの高さを設定
-        return 64
-    }
-    
-    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        // アクセサリボタン（セルの右にあるボタン）がタップされた時の処理
-        print("タップされたアクセサリがあるセルのindex番号: \(indexPath.row)")
+        return 60
     }
     
     
