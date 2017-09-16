@@ -519,7 +519,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         // 遷移するViewを定義する.
         let selectedDay = (sender as AnyObject).tag
         self.planViewController.initSelectedDay(showedYear: self.showedYear, showedMonth: self.showedMonth,  selectedDay: selectedDay!)
-        self.navigationController?.pushViewController(planViewController, animated: true)
+        self.navigationController?.pushViewController(planViewController, animated: false)
 
     }
 
