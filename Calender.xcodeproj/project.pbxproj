@@ -21,7 +21,6 @@
 		DADADA891F6CD309007CE10D /* CreatePlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADA881F6CD309007CE10D /* CreatePlanViewController.swift */; };
 		DADADAAD1F6CE09B007CE10D /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADADAAC1F6CE09B007CE10D /* Realm.framework */; };
 		DADADAAF1F6CE0A5007CE10D /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADADAAE1F6CE0A5007CE10D /* RealmSwift.framework */; };
-		DADADAB11F6E03E6007CE10D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADAB01F6E03E6007CE10D /* MapViewController.swift */; };
 		DAE8818A1F6BD4310015D1C8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE881891F6BD4310015D1C8 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -67,7 +66,6 @@
 		DADADA881F6CD309007CE10D /* CreatePlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePlanViewController.swift; sourceTree = "<group>"; };
 		DADADAAC1F6CE09B007CE10D /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = "../../../Library/Developer/Xcode/DerivedData/Calender-egfsrijhnslcolghbgfotkrjnaoi/Build/Products/Debug-iphoneos/Realm/Realm.framework"; sourceTree = "<group>"; };
 		DADADAAE1F6CE0A5007CE10D /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../../Library/Developer/Xcode/DerivedData/Calender-egfsrijhnslcolghbgfotkrjnaoi/Build/Products/Debug-iphoneos/RealmSwift/RealmSwift.framework"; sourceTree = "<group>"; };
-		DADADAB01F6E03E6007CE10D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		DAE881891F6BD4310015D1C8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		EEAC82F7BCE6A7F4973A34D8 /* Pods-Calender.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calender.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Calender/Pods-Calender.debug.xcconfig"; sourceTree = "<group>"; };
 		EF6FB73BEA923B48232A1403 /* Pods-Calender.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calender.release.xcconfig"; path = "Pods/Target Support Files/Pods-Calender/Pods-Calender.release.xcconfig"; sourceTree = "<group>"; };
@@ -130,7 +128,6 @@
 			isa = PBXGroup;
 			children = (
 				DAC0C5981F5AD01900642F1B /* AppDelegate.swift */,
-				DADADAB01F6E03E6007CE10D /* MapViewController.swift */,
 				DAC0C59A1F5AD01900642F1B /* ViewController.swift */,
 				DADADA881F6CD309007CE10D /* CreatePlanViewController.swift */,
 				DA8C2AD11F657211009570C3 /* PlanViewController.swift */,
@@ -456,7 +453,6 @@
 				DAC0C5CB1F5AD17500642F1B /* CollectionReusableView.swift in Sources */,
 				DAC0C5C91F5AD15100642F1B /* Calendar.swift in Sources */,
 				DA8C2AD21F657211009570C3 /* PlanViewController.swift in Sources */,
-				DADADAB11F6E03E6007CE10D /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
