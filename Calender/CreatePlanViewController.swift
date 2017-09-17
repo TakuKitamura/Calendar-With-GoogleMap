@@ -7,6 +7,9 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     private var startSelectedDate = "2017/09/16 22:00"
     private var endSelectedDate = "2017/09/17 10:00"
     
+    private var isSelectedStart = true
+    private var isSelectedEnd = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -137,11 +140,13 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
             
             cell.textLabel?.text = "開始"
             cell.detailTextLabel?.text = self.startSelectedDate
+
         }
         
         else {
             cell.textLabel?.text = "終了"
             cell.detailTextLabel?.text = self.endSelectedDate
+
         }
 
         /*
@@ -177,6 +182,16 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // セルがタップされた時の処理
+        
+        if(indexPath.row == 0) {
+            self.isSelectedStart = true
+            self.isSelectedEnd = false
+        }
+        
+        else {
+            self.isSelectedEnd = true
+            self.isSelectedStart = false
+        }
         print("タップされたセルのindex番号: \(indexPath.row)")
     }
     
@@ -208,9 +223,20 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         
         // 日付をフォーマットに則って取得.
         let mySelectedDate: NSString = myDateFormatter.string(from: sender.date) as NSString
-        self.startSelectedDate = mySelectedDate as String
         
-        print(self.startSelectedDate)
+        if(isSelectedStart) {
+            self.startSelectedDate = mySelectedDate as String
+        }
+        
+        else if(isSelectedEnd){
+            self.endSelectedDate = mySelectedDate as String
+        }
+        
+        else {
+            print("SelectedStartEnd ERROR!")
+        }
+        
+        print(sender.tag)
         self.tableView.reloadData()
 
     }
