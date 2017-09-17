@@ -283,9 +283,17 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     func savePlanButton(){
         
-        let url: URL = URL(string: "http://localhost:3000/api/v1/?origin_lat=34.990493&origin_lng=135.9637064&destination_lat=34.999493&destination_lng=135.9737064&mode=transit&arrival_time=2017-09-19T02:08:00.000Z")!
+        let createUrl = parseJson.createRequestUrl()
         
-        parseJson.get(url: url, completionHandler: { data, response, error in
+        print(createUrl)
+        print("だよ")
+        
+        let url = URL(string: createUrl)!
+        
+        print(url)
+
+        
+        parseJson.getRequest(url: url, completionHandler: { data, response, error in
             if let res = response {
                 print(res)
             }

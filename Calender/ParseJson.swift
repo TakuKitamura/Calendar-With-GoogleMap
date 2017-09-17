@@ -4,15 +4,19 @@ class ParseJson {
     
     private let session: URLSession = URLSession.shared
     
-    private var departure_time = "2017/01/01 00:00:00"
+    private var departure_time = "2017/01/01%2000:00:00"
     private var mode = "transit"
     private var origin_lat = "0.0"
     private var origin_lng = "0.0"
     private var destination_lat = "0.0"
     private var destination_lng = "0.0"
     
+    private var url = "http://localhost:3000/api/v1/?"
+    
+    private var json = ""
+    
     func updateDepartureTime(departure_time: String) {
-        self.departure_time = departure_time
+        self.departure_time = departure_time.replacingOccurrences(of: " ", with: "%20")
         print(self.departure_time)
     }
     
@@ -41,7 +45,22 @@ class ParseJson {
         print(self.destination_lng)
     }
     
-    func get(url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    func updateJson(json: String) {
+        self.json = json
+        print(self.json)
+    }
+    
+    func createRequestUrl() -> String{
+        
+        self.url += "departure_time=" + self.departure_time + "&" + "mode=" + self.mode + "&" + "origin_lat=" + self.origin_lat + "&" + "origin_lng=" + self.origin_lng + "&" + "destination_lat=" + self.destination_lat + "&" + "destination_lng=" + self.destination_lng
+        
+        print(self.url)
+        return self.url
+
+        //return URL(string: self.url)!
+    }
+    
+    func getRequest(url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
         var request: URLRequest = URLRequest(url: url)
         
         request.httpMethod = "GET"
