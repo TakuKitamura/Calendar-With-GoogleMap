@@ -19,4 +19,5 @@ target 'Calender' do
 pod 'RealmSwift'
 pod 'GoogleMaps'
 pod 'GooglePlaces'
+pod 'GooglePlacePicker'
 end
