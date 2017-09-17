@@ -4,14 +4,21 @@ import GooglePlacePicker
 
 class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, GMSPlacePickerViewControllerDelegate {
     
+    private var parseJson = ParseJson()
+    
     private var tableView: UITableView!
     private var datePicker: UIDatePicker!
     private var startSelectedDate = "2017/09/16 22:00"
     private var endSelectedDate = "2017/09/17 10:00"
+    private var origin = "地図で調べる"
     private var destination = "地図で調べる"
     
     private var isSelectedStart = true
     private var isSelectedEnd = false
+    
+    private var isSelectedOrigin = false
+    
+    private var isSelectedDestination = false
     
     private var placePicker: GMSPlacePickerViewController!
     
@@ -149,6 +156,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
             
             cell.textLabel?.text = "開始"
             cell.detailTextLabel?.text = self.startSelectedDate
+        
 
         }
         
@@ -156,6 +164,11 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
             cell.textLabel?.text = "終了"
             cell.detailTextLabel?.text = self.endSelectedDate
 
+        }
+            
+        else if(indexPath.row == 2) {
+            cell.textLabel?.text = "出発地"
+            cell.detailTextLabel?.text = self.origin
         }
         
         else {
@@ -190,7 +203,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // セルの数を設定
-        return 3
+        return 4
     }
     
     // MARK: - UITableViewDelegate
@@ -207,8 +220,16 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
             self.isSelectedEnd = true
             self.isSelectedStart = false
         }
+            
+        else if(indexPath.row == 2){
+            self.isSelectedOrigin = true
+            self.isSelectedDestination = false
+            pickPlace()
+        }
         
         else {
+            self.isSelectedDestination = true
+            self.isSelectedOrigin = false
             pickPlace()
         }
         print("タップされたセルのindex番号: \(indexPath.row)")
@@ -245,6 +266,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         
         if(isSelectedStart) {
             self.startSelectedDate = mySelectedDate as String
+            parseJson.updateDepartureTime(departure_time: self.startSelectedDate)
         }
         
         else if(isSelectedEnd){
@@ -254,21 +276,35 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         else {
             print("SelectedStartEnd ERROR!")
         }
-        
-        print(sender.tag)
+
         self.tableView.reloadData()
 
     }
     
     func savePlanButton(){
-        // self.navigationController?.pushViewController(mapViewController, animated: false)
+        
+        let url: URL = URL(string: "http://localhost:3000/api/v1/?origin_lat=34.990493&origin_lng=135.9637064&destination_lat=34.999493&destination_lng=135.9737064&mode=transit&arrival_time=2017-09-19T02:08:00.000Z")!
+        
+        parseJson.get(url: url, completionHandler: { data, response, error in
+            if let res = response {
+                print(res)
+            }
+            if let dat = data {
+                if let string = String(data: dat, encoding: .utf8) {
+                    print(string)
+                } else {
+                    print("not a valid UTF-8 sequence")
+                }
+            }
+            if let err = error {
+                print(err)
+            }
+        })
     }
     
     func pickPlace() {
         let config = GMSPlacePickerConfig(viewport: nil)
         self.placePicker = GMSPlacePickerViewController(config: config)
-        
-        print(self.placePicker)
         
         self.placePicker.delegate = self
         
@@ -280,12 +316,29 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
         // Dismiss the place picker, as it cannot dismiss itself.
         viewController.dismiss(animated: true, completion: nil)
-        print(place)
+        
+        if(self.isSelectedOrigin) {
+            parseJson.updateOriginLat(origin_lat: String(place.coordinate.latitude))
+            parseJson.updateOriginLng(origin_lng: String(place.coordinate.longitude))
+        }
+        
+        else if(self.isSelectedDestination){
+            parseJson.updateDestinationLat(destination_lat: String(place.coordinate.latitude))
+            parseJson.updateDestinationLng(destination_lng: String(place.coordinate.longitude))
+        }
+        
+        else {
+            print("place.coordinate ERROR!")
+        }
+        
     }
     
     func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
         // Dismiss the place picker, as it cannot dismiss itself.
         viewController.dismiss(animated: true, completion: nil)
+        
+        self.isSelectedOrigin = false
+        self.isSelectedDestination = false
         
         print("No place selected")
     }
