@@ -17,4 +17,6 @@ target 'Calender' do
     # Pods for testing
   end
 pod 'RealmSwift'
+pod 'GoogleMaps'
+pod 'GooglePlaces'
 end
