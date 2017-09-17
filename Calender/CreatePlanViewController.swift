@@ -1,6 +1,8 @@
 import UIKit
+import GooglePlaces
+import GooglePlacePicker
 
-class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
+class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, GMSPlacePickerViewControllerDelegate {
     
     private let mapViewController = MapViewController()
     
@@ -12,6 +14,8 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     private var isSelectedStart = true
     private var isSelectedEnd = false
+    
+    private var placePicker: GMSPlacePickerViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,7 +94,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         // DataPickerをViewに追加する.
         self.view.addSubview(self.datePicker)
         
-        let saveButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(CreatePlanViewController.savePlanButton))
+        let saveButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(CreatePlanViewController.savePlanButton))
         
         self.navigationItem.setRightBarButtonItems([saveButton], animated: false)
 
@@ -207,7 +211,14 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         }
         
         else {
-            self.navigationController?.pushViewController(mapViewController, animated: false)
+            // self.navigationController?.pushViewController(mapViewController, animated: false)
+            let config = GMSPlacePickerConfig(viewport: nil)
+            
+            self.placePicker = GMSPlacePickerViewController(config: config)
+            
+            self.placePicker.delegate = self
+            
+            present(self.placePicker, animated: true, completion: nil)
         }
         print("タップされたセルのindex番号: \(indexPath.row)")
     }
@@ -260,5 +271,20 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     func savePlanButton(){
         // self.navigationController?.pushViewController(mapViewController, animated: false)
+    }
+    
+    // To receive the results from the place picker 'self' will need to conform to
+    // GMSPlacePickerViewControllerDelegate and implement this code.
+    func placePicker(_ mapViewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
+        // Dismiss the place picker, as it cannot dismiss itself.
+        mapViewController.dismiss(animated: true, completion: nil)
+        print(place)
+    }
+    
+    func placePickerDidCancel(_ mapViewController: GMSPlacePickerViewController) {
+        // Dismiss the place picker, as it cannot dismiss itself.
+        mapViewController.dismiss(animated: true, completion: nil)
+        
+        print("No place selected")
     }
 }
