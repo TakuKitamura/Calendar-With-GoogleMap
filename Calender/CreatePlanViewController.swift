@@ -6,6 +6,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     private var datePicker: UIDatePicker!
     private var startSelectedDate = "2017/09/16 22:00"
     private var endSelectedDate = "2017/09/17 10:00"
+    private var destination = "地図で調べる"
     
     private var isSelectedStart = true
     private var isSelectedEnd = false
@@ -133,7 +134,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         // cell.accessoryType = .detailButton
         
         
-        if indexPath.row == 0 {
+        if (indexPath.row == 0) {
             let separatorView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 0.4))
             separatorView.backgroundColor = UIColor.lightGray
             cell.addSubview(separatorView)
@@ -143,10 +144,16 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
 
         }
         
-        else {
+        else if(indexPath.row == 1) {
             cell.textLabel?.text = "終了"
             cell.detailTextLabel?.text = self.endSelectedDate
 
+        }
+        
+        else {
+            cell.textLabel?.text = "目的地"
+            cell.detailTextLabel?.text = self.destination
+            
         }
 
         /*
@@ -175,7 +182,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // セルの数を設定
-        return 2
+        return 3
     }
     
     // MARK: - UITableViewDelegate
@@ -188,9 +195,13 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
             self.isSelectedEnd = false
         }
         
-        else {
+        else if(indexPath.row == 1) {
             self.isSelectedEnd = true
             self.isSelectedStart = false
+        }
+        
+        else {
+            
         }
         print("タップされたセルのindex番号: \(indexPath.row)")
     }
