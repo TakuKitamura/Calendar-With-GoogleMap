@@ -4,8 +4,6 @@ import GooglePlacePicker
 
 class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, GMSPlacePickerViewControllerDelegate {
     
-    private let mapViewController = MapViewController()
-    
     private var tableView: UITableView!
     private var datePicker: UIDatePicker!
     private var startSelectedDate = "2017/09/16 22:00"
@@ -211,14 +209,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         }
         
         else {
-            // self.navigationController?.pushViewController(mapViewController, animated: false)
-            let config = GMSPlacePickerConfig(viewport: nil)
-            
-            self.placePicker = GMSPlacePickerViewController(config: config)
-            
-            self.placePicker.delegate = self
-            
-            present(self.placePicker, animated: true, completion: nil)
+            pickPlace()
         }
         print("タップされたセルのindex番号: \(indexPath.row)")
     }
@@ -273,17 +264,28 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         // self.navigationController?.pushViewController(mapViewController, animated: false)
     }
     
+    func pickPlace() {
+        let config = GMSPlacePickerConfig(viewport: nil)
+        self.placePicker = GMSPlacePickerViewController(config: config)
+        
+        print(self.placePicker)
+        
+        self.placePicker.delegate = self
+        
+        present(placePicker, animated: true, completion: nil)
+    }
+    
     // To receive the results from the place picker 'self' will need to conform to
     // GMSPlacePickerViewControllerDelegate and implement this code.
-    func placePicker(_ mapViewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
+    func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
         // Dismiss the place picker, as it cannot dismiss itself.
-        mapViewController.dismiss(animated: true, completion: nil)
+        viewController.dismiss(animated: true, completion: nil)
         print(place)
     }
     
-    func placePickerDidCancel(_ mapViewController: GMSPlacePickerViewController) {
+    func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
         // Dismiss the place picker, as it cannot dismiss itself.
-        mapViewController.dismiss(animated: true, completion: nil)
+        viewController.dismiss(animated: true, completion: nil)
         
         print("No place selected")
     }
