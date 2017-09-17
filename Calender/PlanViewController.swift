@@ -30,7 +30,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let addButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(PlanViewController.createPlanButton))
         
-        self.navigationItem.setRightBarButtonItems([addButton], animated: true)
+        self.navigationItem.setRightBarButtonItems([addButton], animated: false)
 
         
         // UITableView を作成

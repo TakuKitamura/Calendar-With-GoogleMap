@@ -2,6 +2,8 @@ import UIKit
 
 class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
+    private let mapViewController = MapViewController()
+    
     private var tableView: UITableView!
     private var datePicker: UIDatePicker!
     private var startSelectedDate = "2017/09/16 22:00"
@@ -87,6 +89,10 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         
         // DataPickerをViewに追加する.
         self.view.addSubview(self.datePicker)
+        
+        let saveButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(CreatePlanViewController.savePlanButton))
+        
+        self.navigationItem.setRightBarButtonItems([saveButton], animated: false)
 
 
     }
@@ -201,7 +207,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         }
         
         else {
-            
+            self.navigationController?.pushViewController(mapViewController, animated: false)
         }
         print("タップされたセルのindex番号: \(indexPath.row)")
     }
@@ -250,5 +256,9 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         print(sender.tag)
         self.tableView.reloadData()
 
+    }
+    
+    func savePlanButton(){
+        // self.navigationController?.pushViewController(mapViewController, animated: false)
     }
 }
