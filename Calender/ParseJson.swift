@@ -15,6 +15,12 @@ class ParseJson {
     
     private var json = ""
     
+    private var needInfo: Dictionary<String, String> = [:]
+    
+    func parseJson() {
+        
+    }
+    
     func updateDepartureTime(departure_time: String) {
         self.departure_time = departure_time.replacingOccurrences(of: " ", with: "%20")
         print(self.departure_time)
@@ -53,7 +59,7 @@ class ParseJson {
     func createRequestUrl() -> String{
         
         self.url += "departure_time=" + self.departure_time + "&" + "mode=" + self.mode + "&" + "origin_lat=" + self.origin_lat + "&" + "origin_lng=" + self.origin_lng + "&" + "destination_lat=" + self.destination_lat + "&" + "destination_lng=" + self.destination_lng
-        
+
         print(self.url)
         return self.url
 

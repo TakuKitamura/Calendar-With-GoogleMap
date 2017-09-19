@@ -14,12 +14,14 @@ PODS:
   - Realm/Headers (2.10.1)
   - RealmSwift (2.10.1):
     - Realm (= 2.10.1)
+  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - GoogleMaps
   - GooglePlacePicker
   - GooglePlaces
   - RealmSwift
+  - SwiftyJSON
 
 SPEC CHECKSUMS:
   GoogleMaps: 8436ab5d1c25e36915b2f7416d0c8e3fa2e76c61
@@ -27,7 +29,8 @@ SPEC CHECKSUMS:
   GooglePlaces: aafe5990fa7951e98e078761bbdaaf236d7e0c65
   Realm: fc7a317a5c2c9ba91f5f235ede4e2ea76e9eba0c
   RealmSwift: 505ed6c15942a2e76f5cfa78a8667cfa997ee75b
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: ad2922073fd360dcba22df6e93501ab2239032e1
+PODFILE CHECKSUM: 1b574455f204ae39eb22e6ead10a05383fb8f2e5
 
 COCOAPODS: 1.0.1

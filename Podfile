@@ -20,4 +20,5 @@ pod 'RealmSwift'
 pod 'GoogleMaps'
 pod 'GooglePlaces'
 pod 'GooglePlacePicker'
+pod 'SwiftyJSON'
 end
