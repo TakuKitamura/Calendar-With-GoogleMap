@@ -300,6 +300,8 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
             if let dat = data {
                 if let json = String(data: dat, encoding: .utf8) {
                     self.parseJson.updateJson(json: json)
+                    self.origin = self.parseJson.returnParseJson().stringValue
+                    print(self.origin)
                 } else {
                     print("not a valid UTF-8 sequence")
                 }
@@ -317,6 +319,8 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         self.placePicker.delegate = self
         
         present(placePicker, animated: true, completion: nil)
+        
+        print("HELLO")
     }
     
     // To receive the results from the place picker 'self' will need to conform to
@@ -324,6 +328,8 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
         // Dismiss the place picker, as it cannot dismiss itself.
         viewController.dismiss(animated: true, completion: nil)
+        
+        print(place)
         
         if(self.isSelectedOrigin) {
             parseJson.updateOriginLat(origin_lat: String(place.coordinate.latitude))
