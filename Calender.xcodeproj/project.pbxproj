@@ -10,6 +10,7 @@
 		0A6BFE638AEF40C6A09229B8 /* Pods_Calender.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041900AEF02E51E3D15415BB /* Pods_Calender.framework */; };
 		3FD4A9D9923F4E9ADFDE82A7 /* Pods_CalenderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2920FAF22548E793615FC3C1 /* Pods_CalenderUITests.framework */; };
 		6EA8B8D6476443ED962F71DF /* Pods_CalenderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF7FB75926DDE6C49B426965 /* Pods_CalenderTests.framework */; };
+		DA374C281F70B0EE002F048C /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA374C271F70B0EE002F048C /* SwiftyJSON.framework */; };
 		DA8C2AD21F657211009570C3 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8C2AD11F657211009570C3 /* PlanViewController.swift */; };
 		DAC0C5991F5AD01900642F1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0C5981F5AD01900642F1B /* AppDelegate.swift */; };
 		DAC0C59B1F5AD01900642F1B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0C59A1F5AD01900642F1B /* ViewController.swift */; };
@@ -50,6 +51,7 @@
 		828D4CFDF48C7E23FC60AEC2 /* Pods-CalenderUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalenderUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CalenderUITests/Pods-CalenderUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		85A74232AABB81E2BE6DAE00 /* Pods-CalenderUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalenderUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CalenderUITests/Pods-CalenderUITests.release.xcconfig"; sourceTree = "<group>"; };
 		AF7FB75926DDE6C49B426965 /* Pods_CalenderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CalenderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA374C271F70B0EE002F048C /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../Library/Developer/Xcode/DerivedData/Calender-egfsrijhnslcolghbgfotkrjnaoi/Build/Products/Debug-iphonesimulator/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		DA8C2AD11F657211009570C3 /* PlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
 		DAC0C5951F5AD01900642F1B /* Calender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAC0C5981F5AD01900642F1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA374C281F70B0EE002F048C /* SwiftyJSON.framework in Frameworks */,
 				DADADAAF1F6CE0A5007CE10D /* RealmSwift.framework in Frameworks */,
 				DADADAAD1F6CE09B007CE10D /* Realm.framework in Frameworks */,
 				0A6BFE638AEF40C6A09229B8 /* Pods_Calender.framework in Frameworks */,
@@ -163,6 +166,7 @@
 		DACCF861E91FBA1F375CCC13 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DA374C271F70B0EE002F048C /* SwiftyJSON.framework */,
 				DADADAAE1F6CE0A5007CE10D /* RealmSwift.framework */,
 				DADADAAC1F6CE09B007CE10D /* Realm.framework */,
 				041900AEF02E51E3D15415BB /* Pods_Calender.framework */,
