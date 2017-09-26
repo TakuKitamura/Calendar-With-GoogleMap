@@ -17,11 +17,18 @@ class ParseJson {
     
     private var needInfo: Dictionary<String, String> = [:]
     
-    func parseJson(json: String) {
+    func returnParseJson() -> JSON {
         
-        let dataFromString = json.data(using: .utf8, allowLossyConversion: false)
-        let parseJson = JSON(data: dataFromString!)
-        print(parseJson["status"])
+        if let dataFromString = self.json.data(using: .utf8, allowLossyConversion: false) {
+            let parseJson = JSON(data: dataFromString)
+            print(parseJson)
+            return parseJson
+        }
+        
+        else {
+            return "PARSE JSON ERROR"
+        }
+
     }
     
     func updateDepartureTime(departure_time: String) {
@@ -56,7 +63,6 @@ class ParseJson {
     
     func updateJson(json: String) {
         self.json = json
-        self.parseJson(json: self.json)
     }
 
     func createRequestUrl() -> String{
