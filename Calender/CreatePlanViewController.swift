@@ -285,21 +285,21 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         
         let createUrl = parseJson.createRequestUrl()
         
-        print(createUrl)
-        print("だよ")
+        // print(createUrl)
+        // print("だよ")
         
         let url = URL(string: createUrl)!
         
-        print(url)
+        // print(url)
 
         
         parseJson.getRequest(url: url, completionHandler: { data, response, error in
-            if let res = response {
-                print(res)
-            }
+            // if let res = response {
+                // print(res)
+            // }
             if let dat = data {
-                if let string = String(data: dat, encoding: .utf8) {
-                    print(string)
+                if let json = String(data: dat, encoding: .utf8) {
+                    self.parseJson.updateJson(json: json)
                 } else {
                     print("not a valid UTF-8 sequence")
                 }
