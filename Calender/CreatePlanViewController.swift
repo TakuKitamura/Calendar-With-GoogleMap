@@ -5,9 +5,7 @@ import GooglePlacePicker
 class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, GMSPlacePickerViewControllerDelegate {
     
     private var parseJson = ParseJson()
-    
-    private var toolBar: UIToolbar!
-    
+
     private var tableView: UITableView!
     private var datePicker: UIDatePicker!
     private var startSelectedDate = "2017/09/16 22:00"
@@ -106,7 +104,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         let saveButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(CreatePlanViewController.savePlanButton))
         
         self.navigationItem.setRightBarButtonItems([saveButton], animated: false)
-        
+
         
 
     }
@@ -182,27 +180,6 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
             cell.detailTextLabel?.text = self.destination
             
         }
-
-        /*
-        if(indexPath.row < 12) {
-            cell.textLabel?.text = "午前\(indexPath.row)時"
-        }
-            
-        else if(indexPath.row == 12) {
-            cell.textLabel?.text = "正午"
-        }
-            
-        else if(indexPath.row < 24) {
-            cell.textLabel?.text = "午後\(indexPath.row % 12)時"
-        }
-            
-        else {
-            cell.textLabel?.text = "午前0時"
-        }
-        //cell.detailTextLabel?.text = "\(indexPath.row + 1)番目のセルの説明"
-        */
-        
-        
         
         return cell
     }
@@ -249,30 +226,15 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         // セルの高さを設定
         return 50
     }
-    /*
+
     func onDidChangeDate(sender: UIDatePicker){
-        // フォーマットを生成.
-        let myDateFormatter: DateFormatter = DateFormatter()
-        myDateFormatter.dateFormat = "yyyy/MM/dd hh:mm"
-        
-        // 日付をフォーマットに則って取得.
-        let mySelectedDate: NSString = myDateFormatter.string(from: sender.date) as NSString
-        self.startSelectedDate = mySelectedDate as String
-        
-        print(self.startSelectedDate)
-        loadView()
-        viewDidLoad()
-        
-    }
-    */
-    internal func onDidChangeDate(sender: UIDatePicker){
         
         // フォーマットを生成.
         let myDateFormatter: DateFormatter = DateFormatter()
-        myDateFormatter.dateFormat = "yyyy/MM/dd hh:mm"
+        myDateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         
         // 日付をフォーマットに則って取得.
-        let mySelectedDate: NSString = myDateFormatter.string(from: sender.date) as NSString
+        let mySelectedDate: String = myDateFormatter.string(from: sender.date) as String
         
         if(isSelectedStart) {
             self.startSelectedDate = mySelectedDate as String
@@ -331,8 +293,6 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         self.placePicker.delegate = self
         
         present(placePicker, animated: true, completion: nil)
-        
-        print("HELLO")
     }
     
     // To receive the results from the place picker 'self' will need to conform to
@@ -340,8 +300,6 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
         // Dismiss the place picker, as it cannot dismiss itself.
         viewController.dismiss(animated: true, completion: nil)
-        
-        print(place)
         
         if(self.isSelectedOrigin) {
             parseJson.updateOriginLat(origin_lat: String(place.coordinate.latitude))
