@@ -6,6 +6,8 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     private var parseJson = ParseJson()
     
+    private var toolBar: UIToolbar!
+    
     private var tableView: UITableView!
     private var datePicker: UIDatePicker!
     private var startSelectedDate = "2017/09/16 22:00"
@@ -99,10 +101,13 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         // DataPickerをViewに追加する.
         self.view.addSubview(self.datePicker)
         
+        self.datePicker.isHidden = true
+        
         let saveButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(CreatePlanViewController.savePlanButton))
         
         self.navigationItem.setRightBarButtonItems([saveButton], animated: false)
-
+        
+        
 
     }
     
@@ -130,6 +135,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     // テキストフィールドがフォーカスされた時の処理
     func textFieldShouldBeginEditing(_ planTitleField: UITextField) -> Bool {
         print("Start")
+        self.datePicker.isHidden = true
         return true
     }
     
@@ -214,22 +220,26 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         if(indexPath.row == 0) {
             self.isSelectedStart = true
             self.isSelectedEnd = false
+            self.datePicker.isHidden = false
         }
         
         else if(indexPath.row == 1) {
             self.isSelectedEnd = true
             self.isSelectedStart = false
+            self.datePicker.isHidden = false
         }
             
         else if(indexPath.row == 2){
             self.isSelectedOrigin = true
             self.isSelectedDestination = false
+            self.datePicker.isHidden = true
             pickPlace()
         }
         
         else {
             self.isSelectedDestination = true
             self.isSelectedOrigin = false
+            self.datePicker.isHidden = true
             pickPlace()
         }
         print("タップされたセルのindex番号: \(indexPath.row)")
@@ -282,6 +292,8 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     }
     
     func savePlanButton(){
+        
+        self.datePicker.isHidden = true
         
         let createUrl = parseJson.createRequestUrl()
         
@@ -355,5 +367,17 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         self.isSelectedDestination = false
         
         print("No place selected")
+    }
+    
+    func hidePickerView(sender: Any) {
+        self.datePicker.resignFirstResponder()
+        self.datePicker.isHidden = !self.datePicker.isHidden
+    }
+    
+    func donePressed(){
+
+    }
+    func cancelPressed(){
+
     }
 }
