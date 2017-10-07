@@ -274,8 +274,6 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
             if let dat = data {
                 if let json = String(data: dat, encoding: .utf8) {
                     self.parseJson.updateJson(json: json)
-                    self.origin = self.parseJson.returnParseJson().stringValue
-                    print(self.origin)
                 } else {
                     print("not a valid UTF-8 sequence")
                 }
@@ -301,14 +299,38 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         // Dismiss the place picker, as it cannot dismiss itself.
         viewController.dismiss(animated: true, completion: nil)
         
+        
         if(self.isSelectedOrigin) {
             parseJson.updateOriginLat(origin_lat: String(place.coordinate.latitude))
             parseJson.updateOriginLng(origin_lng: String(place.coordinate.longitude))
+            
+            if(place.formattedAddress != nil) {
+                self.origin = place.name
+            }
+                
+            // TODO 座標から、住所を取得する
+            else {
+                self.origin = "選択した地点"
+            }
+            
+            
+            self.tableView.reloadData()
         }
         
         else if(self.isSelectedDestination){
             parseJson.updateDestinationLat(destination_lat: String(place.coordinate.latitude))
             parseJson.updateDestinationLng(destination_lng: String(place.coordinate.longitude))
+            
+            if(place.formattedAddress != nil) {
+                self.destination = place.name
+            }
+            
+            // TODO 座標から、住所を取得する
+            else {
+                self.origin = "選択した地点"
+            }
+
+            self.tableView.reloadData()
         }
         
         else {

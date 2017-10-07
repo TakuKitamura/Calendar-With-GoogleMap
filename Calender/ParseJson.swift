@@ -15,8 +15,6 @@ class ParseJson {
     
     private var json = ""
     
-    private var needInfo: Dictionary<String, String> = [:]
-    
     func returnParseJson() -> JSON {
         
         if let dataFromString = self.json.data(using: .utf8, allowLossyConversion: false) {
