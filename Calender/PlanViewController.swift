@@ -1,4 +1,5 @@
 import UIKit
+import SwiftyJSON
 
 class PlanViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -7,6 +8,8 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     private var showedYear = -1
     private var showedMonth = -1
     private var showedDay = -1
+    
+    private var plans: [JSON] = []
     
     let statusBarHeight = UIApplication.shared.statusBarFrame.height
 
@@ -78,8 +81,15 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         // セルを作る
         
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+        
+        if indexPath.row == self.plans.count{
+            let separatorView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 0.4))
+            separatorView.backgroundColor = UIColor.lightGray
+            cell.addSubview(separatorView)
+         }
         // cell.accessoryType = .detailButton
         
+        /*
         if indexPath.row == 0{
             let separatorView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 0.4))
             separatorView.backgroundColor = UIColor.lightGray
@@ -101,6 +111,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         else {
             cell.textLabel?.text = "午前0時"
         }
+        */
         //cell.detailTextLabel?.text = "\(indexPath.row + 1)番目のセルの説明"
         
         return cell
@@ -108,7 +119,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // セルの数を設定
-        return 25
+        return self.plans.count
     }
     
     // MARK: - UITableViewDelegate
