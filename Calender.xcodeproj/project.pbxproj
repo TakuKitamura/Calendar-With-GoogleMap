@@ -595,6 +595,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EEAC82F7BCE6A7F4973A34D8 /* Pods-Calender.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 29MJE58ESF;
 				INFOPLIST_FILE = Calender/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
@@ -610,6 +611,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EF6FB73BEA923B48232A1403 /* Pods-Calender.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 29MJE58ESF;
 				INFOPLIST_FILE = Calender/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
