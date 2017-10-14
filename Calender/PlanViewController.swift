@@ -1,13 +1,16 @@
 import UIKit
 import SwiftyJSON
+import RealmSwift
 
 class PlanViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private let createPlanViewController = CreatePlanViewController()
     
-    private var showedYear = -1
-    private var showedMonth = -1
-    private var showedDay = -1
+    private var showedYear = 2000
+    private var showedMonth = 01
+    private var showedDay = 01
+    
+    private var tableView: UITableView!
     
     private var plans: [JSON] = []
     
@@ -15,12 +18,15 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("お")
+
         // Do any additional setup after loading the view, typically from a nib.
         
         let dateFormater = DateFormatter()
         dateFormater.locale = Locale(identifier: "ja_JP")
         dateFormater.dateFormat = "yyyy/MM/dd"
         let date = dateFormater.date(from: String(self.showedYear) + "/" + String(self.showedMonth) + "/" + String(self.showedDay))
+        
         
         var calendar = Calendar.current
         let weekday = calendar.component(.weekday, from: date!) - 1
@@ -34,13 +40,14 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         let addButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(PlanViewController.createPlanButton))
         
         self.navigationItem.setRightBarButtonItems([addButton], animated: false)
-
+        
+        // self.cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         
         // UITableView を作成
-        let tableView = UITableView()
+        self.tableView = UITableView()
         
         // サイズと位置調整
-        tableView.frame = CGRect(
+        self.tableView.frame = CGRect(
             x: 0,
             y: statusBarHeight,
             width: self.view.frame.width,
@@ -48,16 +55,18 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         )
         
         // Delegate設定
-        tableView.delegate = self
+        self.tableView.delegate = self
         
         // DataSource設定
-        tableView.dataSource = self
+        self.tableView.dataSource = self
         
-        tableView.separatorInset = .zero
+        self.tableView.separatorInset = .zero
         
-        tableView.tableFooterView = UIView(frame: .zero)
-
-        self.view.addSubview(tableView)
+        self.tableView.tableFooterView = UIView(frame: .zero)
+        
+        self.view.addSubview(self.tableView)
+        
+        print(self.plans)
 
     }
     
@@ -80,46 +89,50 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // セルを作る
         
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+//        if let fileURL = Realm.Configuration.defaultConfiguration.fileURL {
+//            try! FileManager.default.removeItem(at: fileURL)
+//        }
+ 
         
-        if indexPath.row == self.plans.count{
-            let separatorView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 0.4))
-            separatorView.backgroundColor = UIColor.lightGray
-            cell.addSubview(separatorView)
-         }
+        let realm = try! Realm()
+        
+        let lastItem = realm.objects(RealmData.self).sorted(byKeyPath: "id", ascending: false)
+        var addId: Int = 1
+        if lastItem.count > 0 {
+            addId = lastItem[0].id - 1
+        }
+        
+        let realmData = realm.objects(RealmData.self)
+
+        print(realmData)
+        print("です")
+
+        // 登録処理
+        
+//        print(realm.objects(RealmData.self))
+        
+        print("か")
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
         // cell.accessoryType = .detailButton
         
-        /*
-        if indexPath.row == 0{
+        
+        if (indexPath.row == 0) {
             let separatorView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 0.4))
             separatorView.backgroundColor = UIColor.lightGray
             cell.addSubview(separatorView)
+            
+            cell.textLabel?.text = "開始"
+            cell.detailTextLabel?.text = realmData[addId].plans
+            
+            
         }
-        
-        if(indexPath.row < 12) {
-            cell.textLabel?.text = "午前\(indexPath.row)時"
-        }
-        
-        else if(indexPath.row == 12) {
-            cell.textLabel?.text = "正午"
-        }
-        
-        else if(indexPath.row < 24) {
-            cell.textLabel?.text = "午後\(indexPath.row % 12)時"
-        }
-        
-        else {
-            cell.textLabel?.text = "午前0時"
-        }
-        */
-        //cell.detailTextLabel?.text = "\(indexPath.row + 1)番目のセルの説明"
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // セルの数を設定
-        return self.plans.count
+        return 1 // self.plans.count
     }
     
     // MARK: - UITableViewDelegate
@@ -132,6 +145,33 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // セルの高さを設定
         return 60
+    }
+    
+    func addPlanToTable(plan: JSON) {
+        self.plans.append(plan)
+        // 入力値をセット
+        
+        // 保存
+        let realm = try! Realm()
+        print(realm.objects(RealmData.self))
+        let lastItem = realm.objects(RealmData.self).sorted(byKeyPath: "id", ascending: false)
+        var addId: Int = 1
+        if lastItem.count > 0 {
+            addId = lastItem[0].id + 1
+        }
+
+        let realmData = RealmData()
+        realmData.id = addId
+        realmData.plans = plans[0]["status"].stringValue
+        // 登録処理
+        try! realm.write {
+            realm.add(realmData, update: true)
+        }
+        
+        print(realm.objects(RealmData.self))
+
+        loadView()
+        viewDidLoad()
     }
     
     

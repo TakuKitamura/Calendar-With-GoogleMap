@@ -16,22 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSPlacesClient.provideAPIKey("AIzaSyA9mQWiLLHuDhTwAEg5cNUOFHcX-0u1_fI")
         GMSServices.provideAPIKey("AIzaSyA9mQWiLLHuDhTwAEg5cNUOFHcX-0u1_fI")
         
-        
-        let first: ViewController = ViewController()
-        planNavigationController = UINavigationController(rootViewController: first)
+        let planNavigationController = UINavigationController(rootViewController: ViewController())
         window = UIWindow(frame: UIScreen.main.bounds)
         window!.backgroundColor = UIColor.white
-        window!.rootViewController = planNavigationController
         window!.makeKeyAndVisible()
+        window!.rootViewController = planNavigationController
         // Override point for customization after application launch.
-        
-        //self.window = UIWindow(frame: UIScreen.main.bounds)
-        //let storyboard:UIStoryboard =  UIStoryboard(name: "Main",bundle:nil)
-        //self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "ViewController") as UIViewController
-
-        //self.window?.rootViewController = planNavigationController
-        //self.window?.makeKeyAndVisible()
-        
         
         return true
     }

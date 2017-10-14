@@ -5,7 +5,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
     private var myCollectionView : UICollectionView!
     private let dateManager = DateManager()
-    private let planViewController = PlanViewController()
 
     private let weekArray = ["日", "月", "火", "水", "木", "金", "土"]
     private let cellMargin: CGFloat = 2.0
@@ -517,8 +516,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
     func changePlaningPage(sender: Any) {
         // 遷移するViewを定義する.
+        let planViewController = PlanViewController()
+        
         let selectedDay = (sender as AnyObject).tag
-        self.planViewController.initSelectedDay(showedYear: self.showedYear, showedMonth: self.showedMonth,  selectedDay: selectedDay!)
+        planViewController.initSelectedDay(showedYear: self.showedYear, showedMonth: self.showedMonth,  selectedDay: selectedDay!)
         self.navigationController?.pushViewController(planViewController, animated: false)
 
     }
