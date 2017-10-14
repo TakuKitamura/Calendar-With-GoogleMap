@@ -2,6 +2,8 @@ import UIKit
 import GooglePlaces
 import GooglePlacePicker
 
+import RealmSwift
+
 class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, GMSPlacePickerViewControllerDelegate {
     
     private var parseJson = ParseJson()
@@ -255,6 +257,8 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     func savePlanButton(){
         
+        let planViewController = PlanViewController()
+        
         self.datePicker.isHidden = true
         
         let createUrl = parseJson.createRequestUrl()
@@ -274,6 +278,8 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
             if let dat = data {
                 if let json = String(data: dat, encoding: .utf8) {
                     self.parseJson.updateJson(json: json)
+                    print("え")
+                    planViewController.addPlanToTable(plan: self.parseJson.returnParseJson())
                 } else {
                     print("not a valid UTF-8 sequence")
                 }
@@ -282,6 +288,12 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
                 print(err)
             }
         })
+        
+//        self.navigationController?.popViewController(animated: false)
+//        self.navigationController?.popToViewController(ViewController(), animated: false)
+        navigationController?.popToViewController(navigationController!.viewControllers[0], animated: true)
+        
+//         self.navigationController?.pushViewController(planViewController, animated: false)
     }
     
     func pickPlace() {
@@ -317,7 +329,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
             self.tableView.reloadData()
         }
         
-        else if(self.isSelectedDestination){
+        else if(self.isSelectedDestination) {
             parseJson.updateDestinationLat(destination_lat: String(place.coordinate.latitude))
             parseJson.updateDestinationLng(destination_lng: String(place.coordinate.longitude))
             
