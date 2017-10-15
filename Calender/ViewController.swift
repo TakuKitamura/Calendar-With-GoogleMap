@@ -1,5 +1,6 @@
 
 import UIKit
+import RealmSwift
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
@@ -137,6 +138,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         self.showedMonth = self.showedMonth < 12 ? self.showedMonth + 1 : 1
 
         dateManager.setShowDate(setYear: self.showedYear, setMonth: self.showedMonth)
+        
+        // データベース初期化
+        if let fileURL = Realm.Configuration.defaultConfiguration.fileURL {
+            try! FileManager.default.removeItem(at: fileURL)
+        }
 
         loadView()
         viewDidLoad()
