@@ -70,7 +70,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     }
     
-    func createPlanButton(){
+  @objc   func createPlanButton(){
         self.navigationController?.pushViewController(createPlanViewController, animated: false)
     }
     
@@ -103,13 +103,14 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         let realmData = realm.objects(RealmData.self)
-
+ 
         print(realmData)
+        
         print("です")
 
         // 登録処理
         
-//        print(realm.objects(RealmData.self))
+        print(realm.objects(RealmData.self))
         
         print("か")
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
@@ -169,9 +170,10 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         print(realm.objects(RealmData.self))
-
+ 
         loadView()
         viewDidLoad()
+         
     }
     
     

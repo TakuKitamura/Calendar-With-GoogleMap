@@ -2,8 +2,6 @@ import UIKit
 import GooglePlaces
 import GooglePlacePicker
 
-import RealmSwift
-
 class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, GMSPlacePickerViewControllerDelegate {
     
     private var parseJson = ParseJson()
@@ -229,7 +227,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         return 50
     }
 
-    func onDidChangeDate(sender: UIDatePicker){
+    @objc func onDidChangeDate(sender: UIDatePicker){
         
         // フォーマットを生成.
         let myDateFormatter: DateFormatter = DateFormatter()
@@ -255,7 +253,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
 
     }
     
-    func savePlanButton(){
+    @objc func savePlanButton(){
         
         let planViewController = PlanViewController()
         

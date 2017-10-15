@@ -1,4 +1,5 @@
 PODS:
+  - FirebaseInstanceID (2.0.4)
   - GoogleMaps (2.4.0):
     - GoogleMaps/Maps (= 2.4.0)
   - GoogleMaps/Base (2.4.0)
@@ -9,14 +10,15 @@ PODS:
     - GooglePlaces (= 2.4.0)
   - GooglePlaces (2.4.0):
     - GoogleMaps/Base (= 2.4.0)
-  - Realm (2.10.1):
-    - Realm/Headers (= 2.10.1)
-  - Realm/Headers (2.10.1)
-  - RealmSwift (2.10.1):
-    - Realm (= 2.10.1)
+  - Realm (2.10.2):
+    - Realm/Headers (= 2.10.2)
+  - Realm/Headers (2.10.2)
+  - RealmSwift (2.10.2):
+    - Realm (= 2.10.2)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
+  - FirebaseInstanceID
   - GoogleMaps
   - GooglePlacePicker
   - GooglePlaces
@@ -24,13 +26,14 @@ DEPENDENCIES:
   - SwiftyJSON
 
 SPEC CHECKSUMS:
+  FirebaseInstanceID: 70c2b877e9338971b2429ea5a4293df6961aa44e
   GoogleMaps: 8436ab5d1c25e36915b2f7416d0c8e3fa2e76c61
   GooglePlacePicker: 755f10343d71280c7b016823e73fbae9625dfa8a
   GooglePlaces: aafe5990fa7951e98e078761bbdaaf236d7e0c65
-  Realm: fc7a317a5c2c9ba91f5f235ede4e2ea76e9eba0c
-  RealmSwift: 505ed6c15942a2e76f5cfa78a8667cfa997ee75b
+  Realm: 0ef72b837fb67e9f4b098bac771ddd72c7fdbb69
+  RealmSwift: 07a9ae0505091eda6b2ee7c190c3786d6e90a7b0
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 1b574455f204ae39eb22e6ead10a05383fb8f2e5
+PODFILE CHECKSUM: 366eadd401c08ab04bb11cf9edcc0896b1fe680e
 
 COCOAPODS: 1.0.1
