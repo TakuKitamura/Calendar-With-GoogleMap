@@ -11,22 +11,20 @@ class ParseJson {
     private var destination_lat = "0.0"
     private var destination_lng = "0.0"
     
-    private var url = "http://localhost:3000/api/v1/?"
-    
     private var json = ""
     
-    func returnParseJson() -> JSON {
+    func returnParseJson(json: String) -> JSON {
         
-        if let dataFromString = self.json.data(using: .utf8, allowLossyConversion: false) {
+        if let dataFromString = json.data(using: .utf8, allowLossyConversion: false) {
             let parseJson = JSON(data: dataFromString)
-            print(parseJson)
+            //            print(parseJson)
             return parseJson
         }
-        
+            
         else {
             return "PARSE JSON ERROR"
         }
-
+        
     }
     
     func updateDepartureTime(departure_time: String) {
@@ -65,10 +63,10 @@ class ParseJson {
 
     func createRequestUrl() -> String{
         
-        self.url += "departure_time=" + self.departure_time + "&" + "mode=" + self.mode + "&" + "origin_lat=" + self.origin_lat + "&" + "origin_lng=" + self.origin_lng + "&" + "destination_lat=" + self.destination_lat + "&" + "destination_lng=" + self.destination_lng
+        let url = "http://localhost:3000/api/v1/?" + "departure_time=" + self.departure_time + "&" + "mode=" + self.mode + "&" + "origin_lat=" + self.origin_lat + "&" + "origin_lng=" + self.origin_lng + "&" + "destination_lat=" + self.destination_lat + "&" + "destination_lng=" + self.destination_lng
 
-        print(self.url)
-        return self.url
+//        print(self.url)
+        return url
 
         //return URL(string: self.url)!
     }

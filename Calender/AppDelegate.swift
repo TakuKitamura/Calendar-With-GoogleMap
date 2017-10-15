@@ -13,8 +13,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        GMSPlacesClient.provideAPIKey("AIzaSyA9mQWiLLHuDhTwAEg5cNUOFHcX-0u1_fI")
-        GMSServices.provideAPIKey("AIzaSyA9mQWiLLHuDhTwAEg5cNUOFHcX-0u1_fI")
+        GMSPlacesClient.provideAPIKey("AIzaSyDndUePQ1TWVfNQevNk6GEENmRtmpJUiHM")
+        GMSServices.provideAPIKey("AIzaSyDndUePQ1TWVfNQevNk6GEENmRtmpJUiHM")
         
         let planNavigationController = UINavigationController(rootViewController: ViewController())
         window = UIWindow(frame: UIScreen.main.bounds)

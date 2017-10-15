@@ -8,8 +8,8 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
 
     private var tableView: UITableView!
     private var datePicker: UIDatePicker!
-    private var startSelectedDate = "2017/09/16 22:00"
-    private var endSelectedDate = "2017/09/17 10:00"
+    private var startSelectedDate = "2017/10/16 13:00"
+    private var endSelectedDate = "2017/10/17 15:00"
     private var origin = "地図で調べる"
     private var destination = "地図で調べる"
     
@@ -255,29 +255,40 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     @objc func savePlanButton(){
         
-        let planViewController = PlanViewController()
+        // let planViewController = PlanViewController()
         
         self.datePicker.isHidden = true
         
         let createUrl = parseJson.createRequestUrl()
         
-        // print(createUrl)
-        // print("だよ")
-        
         let url = URL(string: createUrl)!
         
-        // print(url)
-
-        
         parseJson.getRequest(url: url, completionHandler: { data, response, error in
-            // if let res = response {
-                // print(res)
-            // }
+
             if let dat = data {
-                if let json = String(data: dat, encoding: .utf8) {
-                    self.parseJson.updateJson(json: json)
-                    print("え")
-                    planViewController.addPlanToTable(plan: self.parseJson.returnParseJson())
+                if let stringJson = String(data: dat, encoding: .utf8) {
+                    
+                    let jsonJson = self.parseJson.returnParseJson(json: stringJson)
+                    
+                    let jsonStatus = jsonJson["status"].stringValue
+                    
+                    if jsonStatus == "OK" {
+                        print("え")
+                        // planViewController.addPlanToTable(plan: self.parseJson.returnParseJson())
+                        
+                        let insertTables = InsertTables()
+                        
+                        insertTables.insertPlan(json: stringJson)
+                        
+                        DispatchQueue.main.async {
+                            self.navigationController?.popToViewController(self.navigationController!.viewControllers[0], animated: true)
+                        }
+                    }
+                    
+                    else {
+                        print("ZERO_RESULTS")
+                    }
+
                 } else {
                     print("not a valid UTF-8 sequence")
                 }
@@ -289,9 +300,11 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         
 //        self.navigationController?.popViewController(animated: false)
 //        self.navigationController?.popToViewController(ViewController(), animated: false)
-        navigationController?.popToViewController(navigationController!.viewControllers[0], animated: true)
-        
 //         self.navigationController?.pushViewController(planViewController, animated: false)
+        
+//        if(isValidPlan) {
+//            navigationController?.popToViewController(navigationController!.viewControllers[0], animated: true)
+//        }
     }
     
     func pickPlace() {

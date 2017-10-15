@@ -89,51 +89,84 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // セルを作る
         
-//        if let fileURL = Realm.Configuration.defaultConfiguration.fileURL {
-//            try! FileManager.default.removeItem(at: fileURL)
-//        }
- 
+        let parseJson = ParseJson()
         
         let realm = try! Realm()
         
-        let lastItem = realm.objects(RealmData.self).sorted(byKeyPath: "id", ascending: false)
-        var addId: Int = 1
-        if lastItem.count > 0 {
-            addId = lastItem[0].id - 1
-        }
-        
-        let realmData = realm.objects(RealmData.self)
- 
-        print(realmData)
-        
-        print("です")
+        let displaySortedPlan = realm.objects(Plan.self)
+            .filter("display = true")
+            // 降順
+            .sorted(byKeyPath: "id", ascending: true)
 
         // 登録処理
-        
-        print(realm.objects(RealmData.self))
+    
         
         print("か")
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
         // cell.accessoryType = .detailButton
         
+        let index = indexPath.row
         
+        if (indexPath.row == 0) {
+            
+            let separatorView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 0.4))
+            separatorView.backgroundColor = UIColor.lightGray
+            cell.addSubview(separatorView)
+        }
+            
+        let jsonJson = parseJson.returnParseJson(json: displaySortedPlan[index].json)
+        print(jsonJson)
+        cell.textLabel?.text = String(displaySortedPlan[index].id)
+        cell.detailTextLabel?.text = jsonJson["routes"][0]["legs"][0]["start_address"].string
+
+        
+        /*
+        for (index, element) in displaySortedItem.enumerated() {
+            if (index == 0) {
+                let separatorView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 0.4))
+                separatorView.backgroundColor = UIColor.lightGray
+                cell.addSubview(separatorView)
+                
+                let jsonJson = parseJson.returnParseJson(json: element.json)
+                
+                cell.textLabel?.text = String(index)
+                cell.detailTextLabel?.text = jsonJson["status"].stringValue
+            }
+        }
+         */
+        
+        
+        /*
         if (indexPath.row == 0) {
             let separatorView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 0.4))
             separatorView.backgroundColor = UIColor.lightGray
             cell.addSubview(separatorView)
             
             cell.textLabel?.text = "開始"
-            cell.detailTextLabel?.text = realmData[addId].plans
+            if(addId == 1) {
+                cell.detailTextLabel?.text = "結果なし"
+            }
+            
+            else {
+                cell.detailTextLabel?.text = "成功"
+//                cell.detailTextLabel?.text = realmData[addId].plans
+            }
             
             
         }
+         */
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // セルの数を設定
-        return 1 // self.plans.count
+        let realm = try! Realm()
+        
+        let displayPlan = realm.objects(Plan.self)
+            .filter("display = true")
+        
+        return displayPlan.count // self.plans.count
     }
     
     // MARK: - UITableViewDelegate
@@ -148,20 +181,21 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         return 60
     }
     
+    /*
     func addPlanToTable(plan: JSON) {
         self.plans.append(plan)
         // 入力値をセット
         
         // 保存
         let realm = try! Realm()
-        print(realm.objects(RealmData.self))
-        let lastItem = realm.objects(RealmData.self).sorted(byKeyPath: "id", ascending: false)
+        print(realm.objects(Plan.self))
+        let lastItem = realm.objects(Plan.self).sorted(byKeyPath: "id", ascending: false)
         var addId: Int = 1
         if lastItem.count > 0 {
             addId = lastItem[0].id + 1
         }
 
-        let realmData = RealmData()
+        let realmData = Plan()
         realmData.id = addId
         realmData.plans = plans[0]["status"].stringValue
         // 登録処理
@@ -169,12 +203,13 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
             realm.add(realmData, update: true)
         }
         
-        print(realm.objects(RealmData.self))
+        print(realm.objects(Plan.self))
  
         loadView()
         viewDidLoad()
          
     }
+     */
     
     
     override func didReceiveMemoryWarning() {
