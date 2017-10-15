@@ -21,4 +21,5 @@ pod 'GoogleMaps'
 pod 'GooglePlaces'
 pod 'GooglePlacePicker'
 pod 'SwiftyJSON'
+pod 'FirebaseInstanceID'
 end

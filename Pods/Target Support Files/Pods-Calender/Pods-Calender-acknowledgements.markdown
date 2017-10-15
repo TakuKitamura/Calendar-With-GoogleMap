@@ -1,6 +1,10 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
+## FirebaseInstanceID
+
+Copyright 2017 Google
+
 ## GoogleMaps
 
 Copyright 2017 Google

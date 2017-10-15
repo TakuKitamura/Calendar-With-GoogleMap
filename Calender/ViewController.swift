@@ -115,7 +115,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
     }
 
-    func changeBeforeMonth(sender: Any) {
+    @objc func changeBeforeMonth(sender: Any) {
         beforeMonthButton.backgroundColor = UIColor.darkGray
 
         self.showedYear = self.showedMonth == 1 ? self.showedYear - 1 : self.showedYear
@@ -129,7 +129,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         viewDidLoad()
     }
 
-    func changeNextMonth(sender: Any) {
+    @objc func changeNextMonth(sender: Any) {
         nextMonthButton.backgroundColor = UIColor.darkGray
 
         self.showedYear = self.showedMonth == 12 ? self.showedYear + 1 : self.showedYear
@@ -514,7 +514,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
     }
 
-    func changePlaningPage(sender: Any) {
+    @objc func changePlaningPage(sender: Any) {
         // 遷移するViewを定義する.
         let planViewController = PlanViewController()
         
