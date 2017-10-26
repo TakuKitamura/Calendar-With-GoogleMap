@@ -55,6 +55,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        // データベース初期化
+        if let fileURL = Realm.Configuration.defaultConfiguration.fileURL {
+            try! FileManager.default.removeItem(at: fileURL)
+        }
+        
          self.title = "カレンダー"
 
         self.automaticallyAdjustsScrollViewInsets = false
@@ -138,11 +143,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         self.showedMonth = self.showedMonth < 12 ? self.showedMonth + 1 : 1
 
         dateManager.setShowDate(setYear: self.showedYear, setMonth: self.showedMonth)
-        
-        // データベース初期化
-        if let fileURL = Realm.Configuration.defaultConfiguration.fileURL {
-            try! FileManager.default.removeItem(at: fileURL)
-        }
 
         loadView()
         viewDidLoad()

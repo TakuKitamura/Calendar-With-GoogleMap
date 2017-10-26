@@ -102,7 +102,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     
         
         print("か")
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         // cell.accessoryType = .detailButton
         
         let index = indexPath.row
@@ -116,45 +116,8 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
             
         let jsonJson = parseJson.returnParseJson(json: displaySortedPlan[index].json)
         print(jsonJson)
-        cell.textLabel?.text = String(displaySortedPlan[index].id)
+        cell.textLabel?.text = String(displaySortedPlan[index].title)
         cell.detailTextLabel?.text = jsonJson["routes"][0]["legs"][0]["start_address"].string
-
-        
-        /*
-        for (index, element) in displaySortedItem.enumerated() {
-            if (index == 0) {
-                let separatorView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 0.4))
-                separatorView.backgroundColor = UIColor.lightGray
-                cell.addSubview(separatorView)
-                
-                let jsonJson = parseJson.returnParseJson(json: element.json)
-                
-                cell.textLabel?.text = String(index)
-                cell.detailTextLabel?.text = jsonJson["status"].stringValue
-            }
-        }
-         */
-        
-        
-        /*
-        if (indexPath.row == 0) {
-            let separatorView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 0.4))
-            separatorView.backgroundColor = UIColor.lightGray
-            cell.addSubview(separatorView)
-            
-            cell.textLabel?.text = "開始"
-            if(addId == 1) {
-                cell.detailTextLabel?.text = "結果なし"
-            }
-            
-            else {
-                cell.detailTextLabel?.text = "成功"
-//                cell.detailTextLabel?.text = realmData[addId].plans
-            }
-            
-            
-        }
-         */
         
         return cell
     }
@@ -179,38 +142,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // セルの高さを設定
         return 60
-    }
-    
-    /*
-    func addPlanToTable(plan: JSON) {
-        self.plans.append(plan)
-        // 入力値をセット
-        
-        // 保存
-        let realm = try! Realm()
-        print(realm.objects(Plan.self))
-        let lastItem = realm.objects(Plan.self).sorted(byKeyPath: "id", ascending: false)
-        var addId: Int = 1
-        if lastItem.count > 0 {
-            addId = lastItem[0].id + 1
-        }
-
-        let realmData = Plan()
-        realmData.id = addId
-        realmData.plans = plans[0]["status"].stringValue
-        // 登録処理
-        try! realm.write {
-            realm.add(realmData, update: true)
-        }
-        
-        print(realm.objects(Plan.self))
- 
-        loadView()
-        viewDidLoad()
-         
-    }
-     */
-    
+    }    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
