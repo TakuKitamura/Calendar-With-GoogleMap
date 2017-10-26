@@ -19,7 +19,7 @@ class InsertTables {
     }
      */
     
-    func insertPlan(json: String) {
+    func insertPlan(json: String, title: String) {
         
         // print(self.returnParseJson(json: json))
         // 保存
@@ -37,6 +37,7 @@ class InsertTables {
         let plan = Plan()
         
         plan.id = addId
+        plan.title = title
         plan.json = json
         
         // 登録処理

@@ -13,6 +13,8 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     private var origin = "地図で調べる"
     private var destination = "地図で調べる"
     
+    private var planTitle = ""
+    
     private var isSelectedStart = true
     private var isSelectedEnd = false
     
@@ -119,7 +121,9 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     func textFieldShouldReturn(_ planTitleField: UITextField) -> Bool {
         
         // キーボードを隠す
+        self.planTitle = planTitleField.text!
         planTitleField.resignFirstResponder()
+        // print(planTitleField.text)
         return true
     }
     
@@ -272,13 +276,13 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
                     
                     let jsonStatus = jsonJson["status"].stringValue
                     
-                    if jsonStatus == "OK" {
+                    if jsonStatus == "OK" && self.planTitle != "" {
                         print("え")
                         // planViewController.addPlanToTable(plan: self.parseJson.returnParseJson())
                         
                         let insertTables = InsertTables()
                         
-                        insertTables.insertPlan(json: stringJson)
+                        insertTables.insertPlan(json: stringJson, title: self.planTitle)
                         
                         DispatchQueue.main.async {
                             self.navigationController?.popToViewController(self.navigationController!.viewControllers[0], animated: true)
