@@ -3,22 +3,6 @@ import SwiftyJSON
 
 class InsertTables {
     
-    /*
-    func returnParseJson(json: String) -> JSON {
-        
-        if let dataFromString = json.data(using: .utf8, allowLossyConversion: false) {
-            let parseJson = JSON(data: dataFromString)
-            //            print(parseJson)
-            return parseJson
-        }
-            
-        else {
-            return "PARSE JSON ERROR"
-        }
-        
-    }
-     */
-    
     func insertPlan(json: String, title: String) {
         
         // print(self.returnParseJson(json: json))

@@ -136,13 +136,28 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // セルがタップされた時の処理
+        
+        let index = indexPath.row
+        
+        let realm = try! Realm()
+        
+        // 後に、日付の条件を加える ex. 2017/10/1 のとき
+        let displaySortedPlan = realm.objects(Plan.self)
+            .filter("display = true")
+            // 降順
+            .sorted(byKeyPath: "id", ascending: true)
+        
+        let planDetailViewController = PlanDetailViewController()
+        
+        planDetailViewController.showDetailPlan(plan: displaySortedPlan[index])
+        self.navigationController?.pushViewController(planDetailViewController, animated: false)
         print("タップされたセルのindex番号: \(indexPath.row)")
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // セルの高さを設定
         return 60
-    }    
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
