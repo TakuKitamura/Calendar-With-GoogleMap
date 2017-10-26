@@ -60,7 +60,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             try! FileManager.default.removeItem(at: fileURL)
         }
         
-         self.title = "カレンダー"
+        self.title = "カレンダー"
 
         self.automaticallyAdjustsScrollViewInsets = false
 
