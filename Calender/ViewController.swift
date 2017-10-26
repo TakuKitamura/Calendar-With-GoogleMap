@@ -56,9 +56,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         // Do any additional setup after loading the view, typically from a nib.
         
         // データベース初期化
-        if let fileURL = Realm.Configuration.defaultConfiguration.fileURL {
-            try! FileManager.default.removeItem(at: fileURL)
-        }
+//        if let fileURL = Realm.Configuration.defaultConfiguration.fileURL {
+//            try! FileManager.default.removeItem(at: fileURL)
+//        }
         
         self.title = "カレンダー"
 
