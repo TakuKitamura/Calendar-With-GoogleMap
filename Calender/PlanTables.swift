@@ -7,7 +7,6 @@ class Plan: Object {
     @objc dynamic var departureDate: Date? = nil
     @objc dynamic var arrivalDate: Date? = nil
     
-    
     override static func primaryKey() -> String {
         return "id"
     }
