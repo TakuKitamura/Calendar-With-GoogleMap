@@ -43,21 +43,65 @@ class PlanDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         let json = JSON(data: dataFromString!)
 //        print(json["routes"][0]["legs"][0]["start_address"].stringValue)
         
-        let startAddress = "出発地：" + json["routes"][0]["legs"][0]["start_address"].stringValue
-        let endAddress = "到着地：" + json["routes"][0]["legs"][0]["end_address"].stringValue
-        let departureTime = "出発時刻：" + json["routes"][0]["legs"][0]["departure_time"]["text"].stringValue
-        let arrivalTime = "到着時刻：" + json["routes"][0]["legs"][0]["arrival_time"]["text"].stringValue
-        let distance = "距離：" + json["routes"][0]["legs"][0]["distance"]["text"].stringValue
-        let fare = "所要金額：" + json["routes"][0]["fare"]["text"].stringValue
-        let duration = "所要時間：" + json["routes"][0]["legs"][0]["duration"]["text"].stringValue
+        var startAddressList = json["routes"][0]["legs"][0]["start_address"].stringValue.split(separator: " ")
         
-        self.planLines.append(startAddress)
-        self.planLines.append(endAddress)
-        self.planLines.append(departureTime)
-        self.planLines.append(arrivalTime)
-        self.planLines.append(distance)
-        self.planLines.append(fare)
-        self.planLines.append(duration)
+        startAddressList.removeFirst()
+        
+        let startAddress = startAddressList.joined(separator: "")
+        
+        var endAddressList = json["routes"][0]["legs"][0]["end_address"].stringValue.split(separator: " ")
+        
+        endAddressList.removeFirst()
+        
+        let endAddress = endAddressList.joined(separator: "")
+        
+        
+        let departureTime = json["routes"][0]["legs"][0]["departure_time"]["text"].stringValue
+        let arrivalTime = json["routes"][0]["legs"][0]["arrival_time"]["text"].stringValue
+        let fare = json["routes"][0]["fare"]["value"].intValue
+        let duration = json["routes"][0]["legs"][0]["duration"]["text"].stringValue
+        
+//        self.planLines.append("所要時間　" + duration + "\n" + "所要金額　" + String(fare) + "円")
+        self.planLines.append(startAddress + "\n" + "出発時刻　" + departureTime + "　所要金額　" + String(fare) + "円")
+//        self.planLines.append(startAddress)
+        
+        for (index, subJson):(String, JSON) in json["routes"][0]["legs"][0]["steps"] {
+            
+            if(subJson["travel_mode"].stringValue == "WALKING") {
+                print(subJson["steps"][Int(index)!]["travel_mode"].stringValue)
+                
+                let walkingDuration = subJson["duration"]["text"].stringValue
+                self.planLines.append("↓　徒歩　" + walkingDuration)
+            }
+            
+            else if(subJson["travel_mode"].stringValue == "TRANSIT") {
+                print(subJson["steps"][Int(index)!]["travel_mode"].stringValue)
+                
+                let transitDepartureTime = subJson["transit_details"]["departure_time"]["text"].stringValue
+                let transitArrivalTime = subJson["transit_details"]["arrival_time"]["text"].stringValue
+                
+                let arrivalStopName = subJson["transit_details"]["arrival_stop"]["name"].stringValue
+                let transitHeadsign = subJson["transit_details"]["headsign"].stringValue
+                let agenciesName = subJson["transit_details"]["line"]["agencies"][0]["name"].stringValue
+                let lineName = subJson["transit_details"]["line"]["name"].stringValue
+                let lineVehicleName = subJson["transit_details"]["line"]["vehicle"]["name"].stringValue
+                
+                let transitDuration = subJson["duration"]["text"].stringValue
+                
+                let departureStopName = subJson["transit_details"]["departure_stop"]["name"].stringValue
+                
+                self.planLines.append("出発バス停　" + departureStopName + "\n" + agenciesName + "　" + transitHeadsign + "　" + lineName + "\n" + "バス出発時刻　" + transitDepartureTime)
+                
+                self.planLines.append("↓　" + lineVehicleName + "　" + transitDuration)
+                
+                self.planLines.append("到着バス停　" + arrivalStopName + "\n" + "バス到着時刻　" + transitArrivalTime)
+
+                
+                
+            }
+        }
+        
+        self.planLines.append(endAddress + "\n" + "到着時刻　" + arrivalTime)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -72,7 +116,8 @@ class PlanDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             separatorView.backgroundColor = UIColor.lightGray
             cell.addSubview(separatorView)
         }
-        
+        cell.textLabel?.adjustsFontSizeToFitWidth = true
+        cell.textLabel?.numberOfLines = 0
         cell.textLabel?.text = self.planLines[indexPath.row]
         
         return cell
