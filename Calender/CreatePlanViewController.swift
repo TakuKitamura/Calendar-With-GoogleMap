@@ -9,14 +9,13 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     private var tableView: UITableView!
     private var datePicker: UIDatePicker!
     private var startSelectedDate = "2017/10/16 13:00"
-    private var endSelectedDate = "2017/10/17 15:00"
+
     private var origin = "地図で調べる"
     private var destination = "地図で調べる"
     
     private var planTitle = ""
     
     private var isSelectedStart = true
-    private var isSelectedEnd = false
     
     private var isSelectedOrigin = false
     
@@ -167,14 +166,8 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         
 
         }
-        
-        else if(indexPath.row == 1) {
-            cell.textLabel?.text = "終了"
-            cell.detailTextLabel?.text = self.endSelectedDate
-
-        }
             
-        else if(indexPath.row == 2) {
+        else if(indexPath.row == 1) {
             cell.textLabel?.text = "出発地"
             cell.detailTextLabel?.text = self.origin
         }
@@ -190,7 +183,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // セルの数を設定
-        return 4
+        return 3
     }
     
     // MARK: - UITableViewDelegate
@@ -200,17 +193,10 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         
         if(indexPath.row == 0) {
             self.isSelectedStart = true
-            self.isSelectedEnd = false
-            self.datePicker.isHidden = false
-        }
-        
-        else if(indexPath.row == 1) {
-            self.isSelectedEnd = true
-            self.isSelectedStart = false
             self.datePicker.isHidden = false
         }
             
-        else if(indexPath.row == 2){
+        else if(indexPath.row == 1){
             self.isSelectedOrigin = true
             self.isSelectedDestination = false
             self.datePicker.isHidden = true
@@ -242,11 +228,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         
         if(isSelectedStart) {
             self.startSelectedDate = mySelectedDate as String
-            parseJson.updateDepartureTime(departure_time: self.startSelectedDate)
-        }
-        
-        else if(isSelectedEnd){
-            self.endSelectedDate = mySelectedDate as String
+            parseJson.updateArrivalTime(arrival_time: self.startSelectedDate)
         }
         
         else {

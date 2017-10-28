@@ -156,7 +156,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // セルの高さを設定
-        return 60
+        return 80
     }
     
     override func didReceiveMemoryWarning() {

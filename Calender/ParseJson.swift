@@ -4,7 +4,7 @@ class ParseJson {
     
     private let session: URLSession = URLSession.shared
     
-    private var departure_time = "2017/01/01,00:00:00"
+    private var arrival_time = "2017/01/01,00:00:00"
     private var mode = "transit"
     private var origin_lat = "0.0"
     private var origin_lng = "0.0"
@@ -27,9 +27,9 @@ class ParseJson {
         
     }
     
-    func updateDepartureTime(departure_time: String) {
-        self.departure_time = departure_time.replacingOccurrences(of: " ", with: ",")
-        // print(self.departure_time)
+    func updateArrivalTime(arrival_time: String) {
+        self.arrival_time = arrival_time.replacingOccurrences(of: " ", with: ",")
+        // print(self.arrival_time)
     }
     
     func updateMode(mode: String) {
@@ -63,7 +63,7 @@ class ParseJson {
 
     func createRequestUrl() -> String{
         
-        let url = "http://localhost:3000/api/v1/?" + "departure_time=" + self.departure_time + "&" + "mode=" + self.mode + "&" + "origin_lat=" + self.origin_lat + "&" + "origin_lng=" + self.origin_lng + "&" + "destination_lat=" + self.destination_lat + "&" + "destination_lng=" + self.destination_lng
+        let url = "http://localhost:3000/api/v1/?" + "arrival_time=" + self.arrival_time + "&" + "mode=" + self.mode + "&" + "origin_lat=" + self.origin_lat + "&" + "origin_lng=" + self.origin_lng + "&" + "destination_lat=" + self.destination_lat + "&" + "destination_lng=" + self.destination_lng
 
 //        print(self.url)
         return url
