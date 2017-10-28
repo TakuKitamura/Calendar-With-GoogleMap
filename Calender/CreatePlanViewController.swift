@@ -29,8 +29,6 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         locationManager = CLLocationManager() // インスタンスの生成
         locationManager.delegate = self // CLLocationManagerDelegateプロトコルを実装するクラスを指定する
         
-        locationManager.startUpdatingLocation()
-        
         // インスタンス初期化
         let planTitleField = UITextField()
         
@@ -198,6 +196,8 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         else {
             self.isSelectedDestination = true
             self.datePicker.isHidden = true
+            
+            locationManager.startUpdatingLocation()
             pickPlace()
         }
         print("タップされたセルのindex番号: \(indexPath.row)")
