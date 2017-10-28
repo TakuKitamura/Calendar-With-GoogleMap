@@ -59,23 +59,22 @@ class PlanDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         let departureTime = json["routes"][0]["legs"][0]["departure_time"]["text"].stringValue
         let arrivalTime = json["routes"][0]["legs"][0]["arrival_time"]["text"].stringValue
         let fare = json["routes"][0]["fare"]["value"].intValue
-        let duration = json["routes"][0]["legs"][0]["duration"]["text"].stringValue
+//        let duration = json["routes"][0]["legs"][0]["duration"]["text"].stringValue
         
 //        self.planLines.append("所要時間　" + duration + "\n" + "所要金額　" + String(fare) + "円")
+        print(departureTime)
         self.planLines.append(startAddress + "\n" + "出発時刻　" + departureTime + "　所要金額　" + String(fare) + "円")
 //        self.planLines.append(startAddress)
         
         for (index, subJson):(String, JSON) in json["routes"][0]["legs"][0]["steps"] {
             
             if(subJson["travel_mode"].stringValue == "WALKING") {
-                print(subJson["steps"][Int(index)!]["travel_mode"].stringValue)
                 
                 let walkingDuration = subJson["duration"]["text"].stringValue
                 self.planLines.append("↓　徒歩　" + walkingDuration)
             }
             
             else if(subJson["travel_mode"].stringValue == "TRANSIT") {
-                print(subJson["steps"][Int(index)!]["travel_mode"].stringValue)
                 
                 let transitDepartureTime = subJson["transit_details"]["departure_time"]["text"].stringValue
                 let transitArrivalTime = subJson["transit_details"]["arrival_time"]["text"].stringValue

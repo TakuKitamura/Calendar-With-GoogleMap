@@ -14,6 +14,7 @@
 		DA3353371FA205AD007CFB7E /* PlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3353361FA205AD007CFB7E /* PlanDetailViewController.swift */; };
 		DA374C281F70B0EE002F048C /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA374C271F70B0EE002F048C /* SwiftyJSON.framework */; };
 		DA8C2AD21F657211009570C3 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8C2AD11F657211009570C3 /* PlanViewController.swift */; };
+		DAAC66AF1FA49D8400808A03 /* BKC.gpx in Resources */ = {isa = PBXBuildFile; fileRef = DAAC66AE1FA49D8400808A03 /* BKC.gpx */; };
 		DAC0C5991F5AD01900642F1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0C5981F5AD01900642F1B /* AppDelegate.swift */; };
 		DAC0C59B1F5AD01900642F1B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0C59A1F5AD01900642F1B /* ViewController.swift */; };
 		DAC0C5AE1F5AD01900642F1B /* CalenderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0C5AD1F5AD01900642F1B /* CalenderTests.swift */; };
@@ -58,6 +59,7 @@
 		DA3353361FA205AD007CFB7E /* PlanDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailViewController.swift; sourceTree = "<group>"; };
 		DA374C271F70B0EE002F048C /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../Library/Developer/Xcode/DerivedData/Calender-egfsrijhnslcolghbgfotkrjnaoi/Build/Products/Debug-iphonesimulator/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		DA8C2AD11F657211009570C3 /* PlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
+		DAAC66AE1FA49D8400808A03 /* BKC.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BKC.gpx; sourceTree = "<group>"; };
 		DAC0C5951F5AD01900642F1B /* Calender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAC0C5981F5AD01900642F1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAC0C59A1F5AD01900642F1B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				DAF9E3C61F9355C100DCA205 /* DB.swift */,
 				DAC0C5CA1F5AD17500642F1B /* CollectionReusableView.swift */,
 				DAC0C5A41F5AD01900642F1B /* Info.plist */,
+				DAAC66AE1FA49D8400808A03 /* BKC.gpx */,
 			);
 			path = Calender;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAAC66AF1FA49D8400808A03 /* BKC.gpx in Resources */,
 				DAE8818A1F6BD4310015D1C8 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

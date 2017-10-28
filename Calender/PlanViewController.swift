@@ -23,8 +23,8 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Do any additional setup after loading the view, typically from a nib.
         
         let dateFormater = DateFormatter()
-        dateFormater.locale = Locale(identifier: "ja_JP")
-        dateFormater.dateFormat = "yyyy/MM/dd"
+        dateFormater.locale = Locale(identifier: "en_US_POSIX")
+        dateFormater.dateFormat = "yyyy-MM-dd"
         let date = dateFormater.date(from: String(self.showedYear) + "/" + String(self.showedMonth) + "/" + String(self.showedDay))
         
         
@@ -65,8 +65,6 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.tableFooterView = UIView(frame: .zero)
         
         self.view.addSubview(self.tableView)
-        
-        print(self.plans)
 
     }
     
@@ -115,7 +113,6 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
             
         let jsonJson = parseJson.returnParseJson(json: displaySortedPlan[index].json)
-        print(jsonJson)
         cell.textLabel?.text = String(displaySortedPlan[index].title)
         cell.detailTextLabel?.text = jsonJson["routes"][0]["legs"][0]["start_address"].string
         
