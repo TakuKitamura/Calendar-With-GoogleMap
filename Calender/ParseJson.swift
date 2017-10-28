@@ -29,40 +29,60 @@ class ParseJson {
         
     }
     
+    func returnQueryParams() -> Dictionary<String, String> {
+        return queryParams
+    }
+    
     func updateArrivalTime(arrival_time: String) {
+        
+        func localToUTC(date:String) -> String {
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+            dateFormatter.calendar = NSCalendar.current
+            dateFormatter.timeZone = TimeZone.current
+            
+            let dt = dateFormatter.date(from: date)
+            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+            
+            return dateFormatter.string(from: dt!)
+        }
 //        self.arrival_time = arrival_time.replacingOccurrences(of: " ", with: ",")
-        queryParams["arrival_time"] = arrival_time.replacingOccurrences(of: " ", with: ",")
+//        queryParams["arrival_time"] = arrival_time.replacingOccurrences(of: " ", with: ",")
         // print(self.arrival_time)
+//        let dateString = arrival_time
+//        let df = DateFormatter()
+//        df.dateFormat = "yyyy/MM/dd HH:mm"
+//        if let dateFromString = df.date(from: dateString) {
+//            print(dateFromString)  // "2015-01-14 10:53:00 +0000\n"
+//            df.timeZone = TimeZone(secondsFromGMT: 0)
+//            let stringFromDate = df.string(from: dateFromString) //"Jan 14, 2015, 10:53 AM"
+//            print(stringFromDate)
+//            queryParams["arrival_time"] = stringFromDate.replacingOccurrences(of: " ", with: ",")
+//        }
+        queryParams["arrival_time"] = localToUTC(date: arrival_time).replacingOccurrences(of: " ", with: ",")
+        
     }
     
     func updateMode(mode: String) {
-//        self.mode = mode
         queryParams["mode"] = mode
-        // print(self.mode)
     }
     
     func updateOriginLat(origin_lat: String) {
-//        self.origin_lat = origin_lat
         queryParams["origin_lat"] = origin_lat
-        // print(self.origin_lat)
     }
     
     func updateOriginLng(origin_lng: String) {
-//        self.origin_lng = origin_lng
         queryParams["origin_lng"] = origin_lng
-        // print(self.origin_lng)
     }
     
     func updateDestinationLat(destination_lat: String) {
-//        self.destination_lat = destination_lat
         queryParams["destination_lat"] = destination_lat
-        // print(self.destination_lat)
     }
     
     func updateDestinationLng(destination_lng: String) {
-//        self.destination_lng = destination_lng
         queryParams["destination_lng"] = destination_lng
-        // print(self.destination_lng)
     }
 
     func createRequestUrl() -> String{
@@ -72,8 +92,6 @@ class ParseJson {
         var url = "http://localhost:3000/api/v1/?"
 
         var queryParamsCount = queryParams.count
-
-        print()
 
         for (key, value) in queryParams {
             if(queryParamsCount > 1) {
@@ -91,16 +109,8 @@ class ParseJson {
 
             queryParamsCount -= 1
         }
-        
-//        let url = "http://localhost:3000/api/v1/?" + "arrival_time=" + queryParams["arrival_time"] + "&" + "mode=" + queryParams["mode"] + "&" + "origin_lat=" + queryParams["origin_lat"] + "&" + "origin_lng=" + queryParams["origin_lng"] + "&" + "destination_lat=" + queryParams["destination_lat"] + "&" + "destination_lng=" + queryParams["destination_lng"]
-        
-//        let url = "http://localhost:3000/api/v1/?" + "arrival_time=" + self.arrival_time + "&" + "mode=" + self.mode + "&" + "origin_lat=" + self.origin_lat + "&" + "origin_lng=" + self.origin_lng + "&" + "destination_lat=" + self.destination_lat + "&" + "destination_lng=" + self.destination_lng
-        
 
-//        print(self.url)
         return url
-
-        //return URL(string: self.url)!
     }
     
     func getRequest(url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {

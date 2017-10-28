@@ -29,6 +29,8 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         locationManager = CLLocationManager() // インスタンスの生成
         locationManager.delegate = self // CLLocationManagerDelegateプロトコルを実装するクラスを指定する
         
+        locationManager.startUpdatingLocation()
+        
         // インスタンス初期化
         let planTitleField = UITextField()
         
@@ -196,8 +198,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         else {
             self.isSelectedDestination = true
             self.datePicker.isHidden = true
-            
-            locationManager.startUpdatingLocation()
+
             pickPlace()
         }
         print("タップされたセルのindex番号: \(indexPath.row)")
@@ -211,11 +212,12 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     @objc func onDidChangeDate(sender: UIDatePicker){
         
         // フォーマットを生成.
-        let myDateFormatter: DateFormatter = DateFormatter()
-        myDateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+        let dateFormatter: DateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         
         // 日付をフォーマットに則って取得.
-        let mySelectedDate: String = myDateFormatter.string(from: sender.date) as String
+        let mySelectedDate: String = dateFormatter.string(from: sender.date) as String
         
         if(isSelectedStart) {
             self.startSelectedDate = mySelectedDate as String
@@ -252,9 +254,11 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
                         print("え")
                         // planViewController.addPlanToTable(plan: self.parseJson.returnParseJson())
                         
+                        let queryParams = self.parseJson.returnQueryParams()
+                        
                         let insert = Insert()
                         
-                        insert.insertPlan(json: stringJson, title: self.planTitle)
+                        insert.insertPlan(json: stringJson, title: self.planTitle, queryParams: queryParams)
                         
                         DispatchQueue.main.async {
                             self.navigationController?.popToViewController(self.navigationController!.viewControllers[0], animated: true)
