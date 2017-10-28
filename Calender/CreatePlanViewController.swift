@@ -1,8 +1,11 @@
 import UIKit
 import GooglePlaces
 import GooglePlacePicker
+import CoreLocation
 
 class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, GMSPlacePickerViewControllerDelegate {
+    
+    var locationManager: CLLocationManager!
     
     private var parseJson = ParseJson()
 
@@ -10,14 +13,11 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     private var datePicker: UIDatePicker!
     private var startSelectedDate = "2017/10/16 13:00"
 
-    private var origin = "地図で調べる"
     private var destination = "地図で調べる"
     
     private var planTitle = ""
     
     private var isSelectedStart = true
-    
-    private var isSelectedOrigin = false
     
     private var isSelectedDestination = false
     
@@ -25,6 +25,11 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        locationManager = CLLocationManager() // インスタンスの生成
+        locationManager.delegate = self // CLLocationManagerDelegateプロトコルを実装するクラスを指定する
+        
+        locationManager.startUpdatingLocation()
         
         // インスタンス初期化
         let planTitleField = UITextField()
@@ -163,13 +168,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
             
             cell.textLabel?.text = "開始"
             cell.detailTextLabel?.text = self.startSelectedDate
-        
 
-        }
-            
-        else if(indexPath.row == 1) {
-            cell.textLabel?.text = "出発地"
-            cell.detailTextLabel?.text = self.origin
         }
         
         else {
@@ -183,7 +182,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // セルの数を設定
-        return 3
+        return 2
     }
     
     // MARK: - UITableViewDelegate
@@ -195,17 +194,9 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
             self.isSelectedStart = true
             self.datePicker.isHidden = false
         }
-            
-        else if(indexPath.row == 1){
-            self.isSelectedOrigin = true
-            self.isSelectedDestination = false
-            self.datePicker.isHidden = true
-            pickPlace()
-        }
         
         else {
             self.isSelectedDestination = true
-            self.isSelectedOrigin = false
             self.datePicker.isHidden = true
             pickPlace()
         }
@@ -240,9 +231,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     }
     
     @objc func savePlanButton(){
-        
-        // let planViewController = PlanViewController()
-        
+
         self.datePicker.isHidden = true
         
         let createUrl = parseJson.createRequestUrl()
@@ -309,34 +298,12 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         viewController.dismiss(animated: true, completion: nil)
         
         
-        if(self.isSelectedOrigin) {
-            parseJson.updateOriginLat(origin_lat: String(place.coordinate.latitude))
-            parseJson.updateOriginLng(origin_lng: String(place.coordinate.longitude))
-            
-            if(place.formattedAddress != nil) {
-                self.origin = place.name
-            }
-                
-            // TODO 座標から、住所を取得する
-            else {
-                self.origin = "選択した地点"
-            }
-            
-            
-            self.tableView.reloadData()
-        }
-        
-        else if(self.isSelectedDestination) {
+        if(self.isSelectedDestination) {
             parseJson.updateDestinationLat(destination_lat: String(place.coordinate.latitude))
             parseJson.updateDestinationLng(destination_lng: String(place.coordinate.longitude))
             
             if(place.formattedAddress != nil) {
                 self.destination = place.name
-            }
-            
-            // TODO 座標から、住所を取得する
-            else {
-                self.origin = "選択した地点"
             }
 
             self.tableView.reloadData()
@@ -352,7 +319,6 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         // Dismiss the place picker, as it cannot dismiss itself.
         viewController.dismiss(animated: true, completion: nil)
         
-        self.isSelectedOrigin = false
         self.isSelectedDestination = false
         
         print("No place selected")
@@ -370,3 +336,16 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
 
     }
 }
+
+extension CreatePlanViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        for location in locations {
+            print("緯度:\(location.coordinate.latitude) 経度:\(location.coordinate.longitude) 取得時刻:\(location.timestamp.description)")
+            
+            parseJson.updateOriginLat(origin_lat: String(location.coordinate.latitude))
+            parseJson.updateOriginLng(origin_lng: String(location.coordinate.longitude))
+        }
+    }
+}
+
