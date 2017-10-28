@@ -26,7 +26,7 @@
 		DADADAAF1F6CE0A5007CE10D /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADADAAE1F6CE0A5007CE10D /* RealmSwift.framework */; };
 		DADADAB51F6E45E9007CE10D /* ParseJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADAB41F6E45E9007CE10D /* ParseJson.swift */; };
 		DAE8818A1F6BD4310015D1C8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE881891F6BD4310015D1C8 /* Default-568h@2x.png */; };
-		DAF9E3C71F9355C100DCA205 /* InsertTables.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF9E3C61F9355C100DCA205 /* InsertTables.swift */; };
+		DAF9E3C71F9355C100DCA205 /* DB.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF9E3C61F9355C100DCA205 /* DB.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,7 +76,7 @@
 		DADADAAE1F6CE0A5007CE10D /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../../Library/Developer/Xcode/DerivedData/Calender-egfsrijhnslcolghbgfotkrjnaoi/Build/Products/Debug-iphoneos/RealmSwift/RealmSwift.framework"; sourceTree = "<group>"; };
 		DADADAB41F6E45E9007CE10D /* ParseJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseJson.swift; sourceTree = "<group>"; };
 		DAE881891F6BD4310015D1C8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		DAF9E3C61F9355C100DCA205 /* InsertTables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertTables.swift; sourceTree = "<group>"; };
+		DAF9E3C61F9355C100DCA205 /* DB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DB.swift; sourceTree = "<group>"; };
 		EEAC82F7BCE6A7F4973A34D8 /* Pods-Calender.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calender.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Calender/Pods-Calender.debug.xcconfig"; sourceTree = "<group>"; };
 		EF6FB73BEA923B48232A1403 /* Pods-Calender.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calender.release.xcconfig"; path = "Pods/Target Support Files/Pods-Calender/Pods-Calender.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -147,7 +147,7 @@
 				DAC0C5C61F5AD12A00642F1B /* DateManager.swift */,
 				DAC0C5C81F5AD15100642F1B /* Calendar.swift */,
 				DA1E41641F90AC74005F4D33 /* PlanTables.swift */,
-				DAF9E3C61F9355C100DCA205 /* InsertTables.swift */,
+				DAF9E3C61F9355C100DCA205 /* DB.swift */,
 				DAC0C5CA1F5AD17500642F1B /* CollectionReusableView.swift */,
 				DAC0C5A41F5AD01900642F1B /* Info.plist */,
 			);
@@ -468,7 +468,7 @@
 				DADADA891F6CD309007CE10D /* CreatePlanViewController.swift in Sources */,
 				DAC0C59B1F5AD01900642F1B /* ViewController.swift in Sources */,
 				DAC0C5C71F5AD12A00642F1B /* DateManager.swift in Sources */,
-				DAF9E3C71F9355C100DCA205 /* InsertTables.swift in Sources */,
+				DAF9E3C71F9355C100DCA205 /* DB.swift in Sources */,
 				DAC0C5991F5AD01900642F1B /* AppDelegate.swift in Sources */,
 				DA1E41651F90AC74005F4D33 /* PlanTables.swift in Sources */,
 				DAC0C5CB1F5AD17500642F1B /* CollectionReusableView.swift in Sources */,

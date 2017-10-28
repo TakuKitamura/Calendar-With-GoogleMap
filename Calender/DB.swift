@@ -1,7 +1,7 @@
 import RealmSwift
 import SwiftyJSON
 
-class InsertTables {
+class Insert {
     
     func insertPlan(json: String, title: String) {
         

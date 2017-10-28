@@ -237,6 +237,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         let createUrl = parseJson.createRequestUrl()
         
         let url = URL(string: createUrl)!
+        print(url)
         
         parseJson.getRequest(url: url, completionHandler: { data, response, error in
 
@@ -251,9 +252,9 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
                         print("え")
                         // planViewController.addPlanToTable(plan: self.parseJson.returnParseJson())
                         
-                        let insertTables = InsertTables()
+                        let insert = Insert()
                         
-                        insertTables.insertPlan(json: stringJson, title: self.planTitle)
+                        insert.insertPlan(json: stringJson, title: self.planTitle)
                         
                         DispatchQueue.main.async {
                             self.navigationController?.popToViewController(self.navigationController!.viewControllers[0], animated: true)
