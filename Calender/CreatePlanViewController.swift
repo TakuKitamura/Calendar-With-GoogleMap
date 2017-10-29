@@ -7,7 +7,9 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     var locationManager: CLLocationManager!
     
-    private var parseJson = ParseJson()
+    private var tool = Tool()
+    
+    private var queryParams: Dictionary<String, String> = [:]
 
     private var tableView: UITableView!
     private var datePicker: UIDatePicker!
@@ -40,7 +42,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         
         self.startSelectedDate = dateFormatter.string(from: Date())
-        parseJson.updateArrivalTime(arrival_time: self.startSelectedDate)
+
         
         // サイズ設定
         planTitleField.frame.size.width = self.view.frame.width - 10
@@ -234,7 +236,24 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         
         if(isSelectedStart) {
             self.startSelectedDate = mySelectedDate as String
-            parseJson.updateArrivalTime(arrival_time: self.startSelectedDate)
+            
+            func localToUTC(date:String) -> String {
+                let dateFormatter = DateFormatter()
+                dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+                dateFormatter.calendar = NSCalendar.current
+                dateFormatter.timeZone = TimeZone.current
+                
+                let dt = dateFormatter.date(from: date)
+                dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+                
+                return dateFormatter.string(from: dt!)
+            }
+            
+            
+            self.queryParams["arrival_time"] = localToUTC(date: self.startSelectedDate).replacingOccurrences(of: " ", with: ",")
+            //        tool.updateArrivalTime(arrival_time: self.startSelectedDate)
         }
         
         else {
@@ -249,7 +268,9 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
 
         self.datePicker.isHidden = true
         
-        let createUrl = parseJson.createRequestUrl()
+        self.queryParams["mode"] = "transit"
+        
+        let createUrl = tool.createRequestUrl(queryParams: queryParams)
         
         let url = URL(string: createUrl)!
         print(url)
@@ -258,24 +279,20 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         
         if(planTitle != "" && self.destination != "") {
         
-            parseJson.getRequest(url: url, completionHandler: { data, response, error in
+            tool.getRequest(url: url, completionHandler: { data, response, error in
 
                 if let dat = data {
                     if let stringJson = String(data: dat, encoding: .utf8) {
                         
-                        let jsonJson = self.parseJson.returnParseJson(json: stringJson)
+                        let jsonJson = self.tool.returnParseJson(json: stringJson)
                         
                         let jsonStatus = jsonJson["status"].stringValue
                         
                         if(jsonStatus == "OK"){
-                            print("え")
-                            // planViewController.addPlanToTable(plan: self.parseJson.returnParseJson())
                             
-                            let queryParams = self.parseJson.returnQueryParams()
+                            let db = DB()
                             
-                            let insert = Insert()
-                            
-                            insert.insertPlan(json: stringJson, title: planTitle, queryParams: queryParams)
+                            db.updatePlan(id: -1, json: stringJson, title: planTitle, queryParams: self.queryParams)
                             
                             DispatchQueue.main.async {
                                 self.navigationController?.popToViewController(self.navigationController!.viewControllers[0], animated: false)
@@ -322,8 +339,10 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         
         
         if(self.isSelectedDestination) {
-            parseJson.updateDestinationLat(destination_lat: String(place.coordinate.latitude))
-            parseJson.updateDestinationLng(destination_lng: String(place.coordinate.longitude))
+            self.queryParams["destination_lat"] = String(place.coordinate.latitude)
+            self.queryParams["destination_lng"] = String(place.coordinate.longitude)
+//            tool.updateDestinationLat(destination_lat: String(place.coordinate.latitude))
+//            tool.updateDestinationLng(destination_lng: String(place.coordinate.longitude))
             
             if(place.formattedAddress != nil) {
                 self.destination = place.name
@@ -370,8 +389,10 @@ extension CreatePlanViewController: CLLocationManagerDelegate {
         for location in locations {
             print("緯度:\(location.coordinate.latitude) 経度:\(location.coordinate.longitude) 取得時刻:\(location.timestamp.description)")
             
-            parseJson.updateOriginLat(origin_lat: String(location.coordinate.latitude))
-            parseJson.updateOriginLng(origin_lng: String(location.coordinate.longitude))
+            self.queryParams["origin_lat"] = String(location.coordinate.latitude)
+            self.queryParams["origin_lng"] = String(location.coordinate.longitude)
+//            tool.updateOriginLat(origin_lat: String(location.coordinate.latitude))
+//            tool.updateOriginLng(origin_lng: String(location.coordinate.longitude))
         }
     }
 }
