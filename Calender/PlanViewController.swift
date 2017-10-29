@@ -6,6 +6,8 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     private let createPlanViewController = CreatePlanViewController()
     
+    private var queryParams: Dictionary<String, String> = [:]
+    
     private var showedYear = 2000
     private var showedMonth = 01
     private var showedDay = 01
@@ -91,24 +93,8 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let realm = try! Realm()
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        let startBaseDate = dateFormatter.string(from: self.selectedDate)
-        
-        let startDate = dateFormatter.date(from: startBaseDate)
-        
-        let finishBaseDate = dateFormatter.string(from: self.selectedDate + TimeInterval(60 * 60 * 24))
-        
-        //        startDateの24時間後
-        let finishDate = dateFormatter.date(from: finishBaseDate)
-//        let finishDate = dateFormatter.string(from: self.selectedDate + TimeInterval(60 * 60 * 24))
-        
-        let predicate = NSPredicate(format: "(%@ <= departure_time  AND departure_time < %@) AND display = true", startDate! as CVarArg, finishDate! as CVarArg)
-        
         let displaySortedPlan = realm.objects(Plan.self)
-            .filter(predicate)
+            .filter(self.returnDatePredicate())
             // 降順
             .sorted(byKeyPath: "departure_time", ascending: true)
 
@@ -135,6 +121,9 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         cell.textLabel?.text = String(item.title)
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
         dateFormatter.dateFormat = "MM/dd HH:mm"
         
         let departureTime = dateFormatter.string(from: item.departure_time)
@@ -148,24 +137,8 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         // セルの数を設定
         let realm = try! Realm()
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        let startBaseDate = dateFormatter.string(from: self.selectedDate)
-        
-        let startDate = dateFormatter.date(from: startBaseDate)
-        
-        let finishBaseDate = dateFormatter.string(from: self.selectedDate + TimeInterval(60 * 60 * 24))
-        
-        //        startDateの24時間後
-        let finishDate = dateFormatter.date(from: finishBaseDate)
-        //        let finishDate = dateFormatter.string(from: self.selectedDate + TimeInterval(60 * 60 * 24))
-        print(startDate! as CVarArg)
-        let predicate = NSPredicate(format: "(%@ <= departure_time  AND departure_time < %@) AND display = true", startDate! as CVarArg, finishDate! as CVarArg)
-        print(finishDate! as CVarArg)
         let displayPlan = realm.objects(Plan.self)
-            .filter(predicate)
+            .filter(self.returnDatePredicate())
         
         return displayPlan.count // self.plans.count
     }
@@ -179,25 +152,9 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let realm = try! Realm()
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-
-        let startBaseDate = dateFormatter.string(from: self.selectedDate)
-        
-        let startDate = dateFormatter.date(from: startBaseDate)
-        
-        let finishBaseDate = dateFormatter.string(from: self.selectedDate + TimeInterval(60 * 60 * 24))
-        
-        //        startDateの24時間後
-        let finishDate = dateFormatter.date(from: finishBaseDate)
-        //        let finishDate = dateFormatter.string(from: self.selectedDate + TimeInterval(60 * 60 * 24))
-        
-        let predicate = NSPredicate(format: "(%@ <= departure_time  AND departure_time < %@) AND display = true", startDate! as CVarArg, finishDate! as CVarArg)
-        
         // 後に、日付の条件を加える ex. 2017/10/1 のとき
         let displaySortedPlan = realm.objects(Plan.self)
-            .filter(predicate)
+            .filter(self.returnDatePredicate())
             // 降順
             .sorted(byKeyPath: "departure_time", ascending: true)
         
@@ -211,6 +168,26 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // セルの高さを設定
         return 60
+    }
+    
+    func returnDatePredicate() -> NSPredicate {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let startBaseDate = dateFormatter.string(from: self.selectedDate)
+        
+        let startDate = dateFormatter.date(from: startBaseDate)
+        
+        let finishBaseDate = dateFormatter.string(from: self.selectedDate + TimeInterval(60 * 60 * 24))
+        
+        //        startDateの24時間後
+        let finishDate = dateFormatter.date(from: finishBaseDate)
+        //        let finishDate = dateFormatter.string(from: self.selectedDate + TimeInterval(60 * 60 * 24))
+        
+        let predicate = NSPredicate(format: "(%@ <= departure_time  AND departure_time < %@) AND display = true", startDate! as CVarArg, finishDate! as CVarArg)
+        
+        return predicate
     }
     
     override func didReceiveMemoryWarning() {
