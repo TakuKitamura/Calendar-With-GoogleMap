@@ -11,11 +11,12 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
 
     private var tableView: UITableView!
     private var datePicker: UIDatePicker!
-    private var startSelectedDate = "2017/10/16 13:00"
-
-    private var destination = "地図で調べる"
     
-    private var planTitle = ""
+    private var planTitleField: UITextField!
+    
+    private var startSelectedDate = ""
+
+    private var destination = ""
     
     private var isSelectedStart = true
     
@@ -32,7 +33,14 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         locationManager.startUpdatingLocation()
         
         // インスタンス初期化
-        let planTitleField = UITextField()
+        planTitleField = UITextField()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+        
+        self.startSelectedDate = dateFormatter.string(from: Date())
+        parseJson.updateArrivalTime(arrival_time: self.startSelectedDate)
         
         // サイズ設定
         planTitleField.frame.size.width = self.view.frame.width - 10
@@ -125,9 +133,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     func textFieldShouldReturn(_ planTitleField: UITextField) -> Bool {
         
         // キーボードを隠す
-        self.planTitle = planTitleField.text!
         planTitleField.resignFirstResponder()
-        // print(planTitleField.text)
         return true
     }
     
@@ -167,13 +173,20 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
             cell.addSubview(separatorView)
             
             cell.textLabel?.text = "開始"
-            cell.detailTextLabel?.text = self.startSelectedDate
+                cell.detailTextLabel?.text = self.startSelectedDate
 
         }
         
         else {
             cell.textLabel?.text = "目的地"
-            cell.detailTextLabel?.text = self.destination
+            
+            if(self.destination != "") {
+                cell.detailTextLabel?.text = self.destination
+            }
+            
+            else {
+                cell.detailTextLabel?.text = "地図で選択"
+            }
             
         }
         
@@ -241,42 +254,47 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         let url = URL(string: createUrl)!
         print(url)
         
-        parseJson.getRequest(url: url, completionHandler: { data, response, error in
+        let planTitle = self.planTitleField.text!
+        
+        if(planTitle != "" && self.destination != "") {
+        
+            parseJson.getRequest(url: url, completionHandler: { data, response, error in
 
-            if let dat = data {
-                if let stringJson = String(data: dat, encoding: .utf8) {
-                    
-                    let jsonJson = self.parseJson.returnParseJson(json: stringJson)
-                    
-                    let jsonStatus = jsonJson["status"].stringValue
-                    
-                    if jsonStatus == "OK" && self.planTitle != "" {
-                        print("え")
-                        // planViewController.addPlanToTable(plan: self.parseJson.returnParseJson())
+                if let dat = data {
+                    if let stringJson = String(data: dat, encoding: .utf8) {
                         
-                        let queryParams = self.parseJson.returnQueryParams()
+                        let jsonJson = self.parseJson.returnParseJson(json: stringJson)
                         
-                        let insert = Insert()
+                        let jsonStatus = jsonJson["status"].stringValue
                         
-                        insert.insertPlan(json: stringJson, title: self.planTitle, queryParams: queryParams)
-                        
-                        DispatchQueue.main.async {
-                            self.navigationController?.popToViewController(self.navigationController!.viewControllers[0], animated: true)
+                        if(jsonStatus == "OK"){
+                            print("え")
+                            // planViewController.addPlanToTable(plan: self.parseJson.returnParseJson())
+                            
+                            let queryParams = self.parseJson.returnQueryParams()
+                            
+                            let insert = Insert()
+                            
+                            insert.insertPlan(json: stringJson, title: planTitle, queryParams: queryParams)
+                            
+                            DispatchQueue.main.async {
+                                self.navigationController?.popToViewController(self.navigationController!.viewControllers[0], animated: true)
+                            }
                         }
-                    }
-                    
-                    else {
-                        print("ZERO_RESULTS")
-                    }
+                        
+                        else {
+                            print("ZERO_RESULTS")
+                        }
 
-                } else {
-                    print("not a valid UTF-8 sequence")
+                    } else {
+                        print("not a valid UTF-8 sequence")
+                    }
                 }
-            }
-            if let err = error {
-                print(err)
-            }
-        })
+                if let err = error {
+                    print(err)
+                }
+            })
+        }
         
 //        self.navigationController?.popViewController(animated: false)
 //        self.navigationController?.popToViewController(ViewController(), animated: false)
@@ -309,6 +327,10 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
             
             if(place.formattedAddress != nil) {
                 self.destination = place.name
+            }
+            
+            else {
+                self.destination = "選択した地点"
             }
 
             self.tableView.reloadData()
