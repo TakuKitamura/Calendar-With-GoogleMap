@@ -2,31 +2,38 @@
 import RealmSwift
 import SwiftyJSON
 
-class Insert {
+class DB {
     
-    func insertPlan(json: String, title: String, queryParams: Dictionary<String, String>) {
-        
-        let dataFromString = json.data(using: .utf8, allowLossyConversion: false)
-        let jsonJson = JSON(data: dataFromString!)
+    func updatePlan(id: Int, json: String, title: String, queryParams: Dictionary<String, String>) {
         
         // print(self.returnParseJson(json: json))
         // 保存
         let realm = try! Realm()
         
-        // 降順
-        let lastItem = realm.objects(Plan.self).sorted(byKeyPath: "id", ascending: false)
-        
-        var addId: Int = 0
-        
-        if lastItem.count > 0 {
-            addId = lastItem[0].id + 1
-        }
-        
         let plan = Plan()
         
-        plan.id = addId
-        plan.title = title
-        plan.json = json
+        ////////////////
+        
+        // 新規プラン作成
+        if(id == -1) {
+            // 降順
+            let lastItem = realm.objects(Plan.self).sorted(byKeyPath: "id", ascending: false)
+            
+            var addId: Int = 0
+            
+            if lastItem.count > 0 {
+                addId = lastItem[0].id + 1
+            }
+            
+            plan.id = addId
+            
+
+        }
+        
+        // 既存プラン更新
+        else {
+            plan.id = id
+        }
         
         func UTCToLocal(date:String) -> Date {
             let dateFormatter = DateFormatter()
@@ -41,11 +48,26 @@ class Insert {
             return dt!
         }
         
+        plan.title = title
+        
+        plan.mode = queryParams["mode"]!
+        
         plan.arrival_time = UTCToLocal(date: queryParams["arrival_time"]!)
+        
+        plan.destination_lat = Double(queryParams["destination_lat"]!)!
+        plan.destination_lng = Double(queryParams["destination_lng"]!)!
+        
+        
+        ////////////////
+        plan.json = json
+
         
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+        
+        let dataFromString = json.data(using: .utf8, allowLossyConversion: false)
+        let jsonJson = JSON(data: dataFromString!)
         
         let duration = jsonJson["routes"][0]["legs"][0]["duration"]["value"].intValue
         
@@ -62,11 +84,6 @@ class Insert {
         
         plan.origin_lat = Double(queryParams["origin_lat"]!)!
         plan.origin_lng = Double(queryParams["origin_lng"]!)!
-        
-        plan.destination_lat = Double(queryParams["destination_lat"]!)!
-        plan.destination_lng = Double(queryParams["destination_lng"]!)!
-        
-        plan.mode = queryParams["mode"]!
         
         // 登録処理
         try! realm.write {
