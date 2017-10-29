@@ -278,7 +278,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
                             insert.insertPlan(json: stringJson, title: planTitle, queryParams: queryParams)
                             
                             DispatchQueue.main.async {
-                                self.navigationController?.popToViewController(self.navigationController!.viewControllers[0], animated: true)
+                                self.navigationController?.popToViewController(self.navigationController!.viewControllers[0], animated: false)
                             }
                         }
                         
@@ -311,14 +311,14 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         
         self.placePicker.delegate = self
         
-        present(placePicker, animated: true, completion: nil)
+        present(placePicker, animated: false, completion: nil)
     }
     
     // To receive the results from the place picker 'self' will need to conform to
     // GMSPlacePickerViewControllerDelegate and implement this code.
     func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
         // Dismiss the place picker, as it cannot dismiss itself.
-        viewController.dismiss(animated: true, completion: nil)
+        viewController.dismiss(animated: false, completion: nil)
         
         
         if(self.isSelectedDestination) {
@@ -344,7 +344,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
         // Dismiss the place picker, as it cannot dismiss itself.
-        viewController.dismiss(animated: true, completion: nil)
+        viewController.dismiss(animated: false, completion: nil)
         
         self.isSelectedDestination = false
         
