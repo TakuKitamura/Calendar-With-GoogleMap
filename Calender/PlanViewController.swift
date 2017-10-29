@@ -10,6 +10,8 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     private var showedMonth = 01
     private var showedDay = 01
     
+    private var selectedDate = Date()
+    
     private var tableView: UITableView!
     
     private var plans: [JSON] = []
@@ -25,11 +27,11 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         let dateFormater = DateFormatter()
         dateFormater.locale = Locale(identifier: "en_US_POSIX")
         dateFormater.dateFormat = "yyyy-MM-dd"
-        let date = dateFormater.date(from: String(self.showedYear) + "/" + String(self.showedMonth) + "/" + String(self.showedDay))
+        self.selectedDate = dateFormater.date(from: String(self.showedYear) + "-" + String(self.showedMonth) + "-" + String(self.showedDay))!
         
         
         var calendar = Calendar.current
-        let weekday = calendar.component(.weekday, from: date!) - 1
+        let weekday = calendar.component(.weekday, from: self.selectedDate) - 1
         calendar.locale = Locale(identifier: "ja")
         let weekdaySymbols = calendar.weekdaySymbols
         
@@ -137,6 +139,15 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         let index = indexPath.row
         
         let realm = try! Realm()
+        
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+//        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+//
+//        let selectedDate = dateFormatter.string(from: self.selectedDate)
+//        let arrivalDate =
+//
+//        let predicate = ""
         
         // 後に、日付の条件を加える ex. 2017/10/1 のとき
         let displaySortedPlan = realm.objects(Plan.self)

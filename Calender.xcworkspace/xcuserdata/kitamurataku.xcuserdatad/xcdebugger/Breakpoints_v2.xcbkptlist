@@ -30,11 +30,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Calender/DB.swift"
-            timestampString = "530932566.999121"
+            timestampString = "530939490.480625"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
             landmarkName = "insertPlan(json:title:queryParams:)"
             landmarkType = "7">
             <Locations>
@@ -46,7 +46,7 @@
                   moduleName = "Calender"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/kitamurataku/work/bamboober/ios/Calender/DB.swift"
-                  timestampString = "530891898.516003"
+                  timestampString = "530934234.391878"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "57"
@@ -61,7 +61,7 @@
                   moduleName = "Calender"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/kitamurataku/work/bamboober/ios/Calender/DB.swift"
-                  timestampString = "530891898.522568"
+                  timestampString = "530934234.39596"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "58"
@@ -78,13 +78,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Calender/DB.swift"
-            timestampString = "530932566.999268"
+            timestampString = "530939490.481161"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
             landmarkName = "UTCToLocal(date:)"
             landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Calender/PlanViewController.swift"
+            timestampString = "530937814.443691"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

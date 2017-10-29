@@ -9,7 +9,12 @@ class Plan: Object {
     @objc dynamic var json: String = ""
     
     @objc dynamic var departure_time: Date = Date()
+    
+//    目的地に到着したい時刻
     @objc dynamic var arrival_time: Date = Date()
+    
+//    目的地に到着する時刻
+    @objc dynamic var actual_arrival_time: Date = Date()
     
     @objc dynamic var origin_lat: Double = 0.0
     @objc dynamic var origin_lng: Double = 0.0
