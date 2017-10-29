@@ -41,7 +41,6 @@ class PlanDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     func showDetailPlan(plan: Plan) {
         let dataFromString = plan.json.data(using: .utf8, allowLossyConversion: false)
         let json = JSON(data: dataFromString!)
-//        print(json["routes"][0]["legs"][0]["start_address"].stringValue)
         
         var startAddressList = json["routes"][0]["legs"][0]["start_address"].stringValue.split(separator: " ")
         
@@ -55,9 +54,24 @@ class PlanDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let endAddress = endAddressList.joined(separator: "")
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         
-        let departureTime = json["routes"][0]["legs"][0]["departure_time"]["text"].stringValue
-        let arrivalTime = json["routes"][0]["legs"][0]["arrival_time"]["text"].stringValue
+        let duration = json["routes"][0]["legs"][0]["duration"]["value"].intValue
+        
+        var departureTime = String(dateFormatter.string(from: plan.arrival_time - TimeInterval(duration)).split(separator: " ")[1])
+        
+        if(json["routes"][0]["legs"][0]["departure_time"]["text"].exists()) {
+            departureTime = json["routes"][0]["legs"][0]["departure_time"]["text"].stringValue
+        }
+        
+        var arrivalTime = String(dateFormatter.string(from: plan.arrival_time).split(separator: " ")[1])
+        
+        if(json["routes"][0]["legs"][0]["arrival_time"]["text"].exists()) {
+            arrivalTime = json["routes"][0]["legs"][0]["arrival_time"]["text"].stringValue
+        }
+        
         let fare = json["routes"][0]["fare"]["value"].intValue
 //        let duration = json["routes"][0]["legs"][0]["duration"]["text"].stringValue
         
@@ -66,7 +80,7 @@ class PlanDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         self.planLines.append(startAddress + "\n" + "出発時刻　" + departureTime + "　所要金額　" + String(fare) + "円")
 //        self.planLines.append(startAddress)
         
-        for (index, subJson):(String, JSON) in json["routes"][0]["legs"][0]["steps"] {
+        for (_, subJson):(String, JSON) in json["routes"][0]["legs"][0]["steps"] {
             
             if(subJson["travel_mode"].stringValue == "WALKING") {
                 
