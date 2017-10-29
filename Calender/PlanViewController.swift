@@ -89,8 +89,6 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // セルを作る
         
-        let parseJson = ParseJson()
-        
         let realm = try! Realm()
         
         let dateFormatter = DateFormatter()
@@ -121,6 +119,9 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         // cell.accessoryType = .detailButton
         
+        cell.textLabel?.adjustsFontSizeToFitWidth = true
+        cell.textLabel?.numberOfLines = 0
+        
         let index = indexPath.row
         
         if (indexPath.row == 0) {
@@ -129,10 +130,16 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
             separatorView.backgroundColor = UIColor.lightGray
             cell.addSubview(separatorView)
         }
-            
-        let jsonJson = parseJson.returnParseJson(json: displaySortedPlan[index].json)
-        cell.textLabel?.text = String(displaySortedPlan[index].title)
-        cell.detailTextLabel?.text = jsonJson["routes"][0]["legs"][0]["start_address"].string
+        
+        let item = displaySortedPlan[index]
+        
+        cell.textLabel?.text = String(item.title)
+        
+        dateFormatter.dateFormat = "MM/dd HH:mm"
+        
+        let departureTime = dateFormatter.string(from: item.departure_time)
+        let actualArrivalTime = dateFormatter.string(from: item.actual_arrival_time)
+        cell.detailTextLabel?.text = "出発　" + departureTime + "　" + "時刻　" + actualArrivalTime
         
         return cell
     }
@@ -203,7 +210,7 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // セルの高さを設定
-        return 80
+        return 60
     }
     
     override func didReceiveMemoryWarning() {
