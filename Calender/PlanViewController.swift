@@ -93,10 +93,26 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let realm = try! Realm()
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let startBaseDate = dateFormatter.string(from: self.selectedDate)
+        
+        let startDate = dateFormatter.date(from: startBaseDate)
+        
+        let finishBaseDate = dateFormatter.string(from: self.selectedDate + TimeInterval(60 * 60 * 24))
+        
+        //        startDateの24時間後
+        let finishDate = dateFormatter.date(from: finishBaseDate)
+//        let finishDate = dateFormatter.string(from: self.selectedDate + TimeInterval(60 * 60 * 24))
+        
+        let predicate = NSPredicate(format: "(%@ <= departure_time  AND departure_time < %@) AND display = true", startDate! as CVarArg, finishDate! as CVarArg)
+        
         let displaySortedPlan = realm.objects(Plan.self)
-            .filter("display = true")
+            .filter(predicate)
             // 降順
-            .sorted(byKeyPath: "id", ascending: true)
+            .sorted(byKeyPath: "departure_time", ascending: true)
 
         // 登録処理
     
@@ -125,8 +141,24 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         // セルの数を設定
         let realm = try! Realm()
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let startBaseDate = dateFormatter.string(from: self.selectedDate)
+        
+        let startDate = dateFormatter.date(from: startBaseDate)
+        
+        let finishBaseDate = dateFormatter.string(from: self.selectedDate + TimeInterval(60 * 60 * 24))
+        
+        //        startDateの24時間後
+        let finishDate = dateFormatter.date(from: finishBaseDate)
+        //        let finishDate = dateFormatter.string(from: self.selectedDate + TimeInterval(60 * 60 * 24))
+        print(startDate! as CVarArg)
+        let predicate = NSPredicate(format: "(%@ <= departure_time  AND departure_time < %@) AND display = true", startDate! as CVarArg, finishDate! as CVarArg)
+        print(finishDate! as CVarArg)
         let displayPlan = realm.objects(Plan.self)
-            .filter("display = true")
+            .filter(predicate)
         
         return displayPlan.count // self.plans.count
     }
@@ -140,20 +172,27 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let realm = try! Realm()
         
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-//        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
-//
-//        let selectedDate = dateFormatter.string(from: self.selectedDate)
-//        let arrivalDate =
-//
-//        let predicate = ""
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+
+        let startBaseDate = dateFormatter.string(from: self.selectedDate)
+        
+        let startDate = dateFormatter.date(from: startBaseDate)
+        
+        let finishBaseDate = dateFormatter.string(from: self.selectedDate + TimeInterval(60 * 60 * 24))
+        
+        //        startDateの24時間後
+        let finishDate = dateFormatter.date(from: finishBaseDate)
+        //        let finishDate = dateFormatter.string(from: self.selectedDate + TimeInterval(60 * 60 * 24))
+        
+        let predicate = NSPredicate(format: "(%@ <= departure_time  AND departure_time < %@) AND display = true", startDate! as CVarArg, finishDate! as CVarArg)
         
         // 後に、日付の条件を加える ex. 2017/10/1 のとき
         let displaySortedPlan = realm.objects(Plan.self)
-            .filter("display = true")
+            .filter(predicate)
             // 降順
-            .sorted(byKeyPath: "id", ascending: true)
+            .sorted(byKeyPath: "departure_time", ascending: true)
         
         let planDetailViewController = PlanDetailViewController()
         
