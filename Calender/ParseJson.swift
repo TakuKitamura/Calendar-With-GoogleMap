@@ -48,19 +48,7 @@ class ParseJson {
             
             return dateFormatter.string(from: dt!)
         }
-//        self.arrival_time = arrival_time.replacingOccurrences(of: " ", with: ",")
-//        queryParams["arrival_time"] = arrival_time.replacingOccurrences(of: " ", with: ",")
-        // print(self.arrival_time)
-//        let dateString = arrival_time
-//        let df = DateFormatter()
-//        df.dateFormat = "yyyy/MM/dd HH:mm"
-//        if let dateFromString = df.date(from: dateString) {
-//            print(dateFromString)  // "2015-01-14 10:53:00 +0000\n"
-//            df.timeZone = TimeZone(secondsFromGMT: 0)
-//            let stringFromDate = df.string(from: dateFromString) //"Jan 14, 2015, 10:53 AM"
-//            print(stringFromDate)
-//            queryParams["arrival_time"] = stringFromDate.replacingOccurrences(of: " ", with: ",")
-//        }
+
         queryParams["arrival_time"] = localToUTC(date: arrival_time).replacingOccurrences(of: " ", with: ",")
         
     }
