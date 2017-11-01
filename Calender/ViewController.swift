@@ -68,9 +68,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         // Do any additional setup after loading the view, typically from a nib.
         
         // データベース初期化
-//        if let fileURL = Realm.Configuration.defaultConfiguration.fileURL {
-//            try! FileManager.default.removeItem(at: fileURL)
-//        }
+        if let fileURL = Realm.Configuration.defaultConfiguration.fileURL {
+            try! FileManager.default.removeItem(at: fileURL)
+        }
         
         locationManager = CLLocationManager() // インスタンスの生成
         locationManager.delegate = self // CLLocationManagerDelegateプロトコルを実装するクラスを指定する
@@ -583,8 +583,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                                 let db = DB()
                                 DispatchQueue.main.async {
                                     db.updatePlan(id: planTable.id, json: stringJson, title: planTable.title, queryParams: self.queryParams)
-                                    self.navigationController?.pushViewController(planViewController, animated: false)
                                 }
+                                
                             }
                                 
                             else {
@@ -603,10 +603,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 print(planTable.id)
                 print(self.queryParams)
             }
+            self.navigationController?.pushViewController(planViewController, animated: false)
         }
         
         else {
-          self.navigationController?.pushViewController(planViewController, animated: false)
+            let createPlanViewController = CreatePlanViewController()
+            self.navigationController?.pushViewController(createPlanViewController, animated: false)
         }
         // 遷移するViewを定義する.
         
