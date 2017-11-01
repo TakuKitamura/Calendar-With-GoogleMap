@@ -60,20 +60,21 @@ class DB {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd,HH:mm"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
 //        dateFormatter.timeZone = TimeZone.current
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         
         
         plan.title = title
         plan.mode = queryParams["mode"]!
+//        print(queryParams["arrival_time"]!)
 //        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        
         plan.arrival_time = dateFormatter.date(from: queryParams["arrival_time"]!)!
-        print("plan.arrival_time" + dateFormatter.string(from: plan.arrival_time))
         
         plan.destination_lat = Double(queryParams["destination_lat"]!)!
         plan.destination_lng = Double(queryParams["destination_lng"]!)!
-        
-        
+
         ////////////////
         plan.json = json
 
