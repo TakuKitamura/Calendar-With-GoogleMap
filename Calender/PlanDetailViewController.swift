@@ -42,17 +42,19 @@ class PlanDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         let dataFromString = plan.json.data(using: .utf8, allowLossyConversion: false)
         let json = JSON(data: dataFromString!)
         
-        var startAddressList = json["routes"][0]["legs"][0]["start_address"].stringValue.split(separator: " ")
+        // 存在しない場合がある
+//        var startAddressList = json["routes"][0]["legs"][0]["start_address"].stringValue.split(separator: " ")
         
-        startAddressList.removeFirst()
+//        startAddressList.removeFirst()
         
-        let startAddress = startAddressList.joined(separator: "")
+//        let startAddress = startAddressList.joined(separator: "")
         
-        var endAddressList = json["routes"][0]["legs"][0]["end_address"].stringValue.split(separator: " ")
+        // 存在しない場合がある
+//        var endAddressList = json["routes"][0]["legs"][0]["end_address"].stringValue.split(separator: " ")
         
-        endAddressList.removeFirst()
+//        endAddressList.removeFirst()
         
-        let endAddress = endAddressList.joined(separator: "")
+//        let endAddress = endAddressList.joined(separator: "")
         
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -77,7 +79,7 @@ class PlanDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         
 //        self.planLines.append("所要時間　" + duration + "\n" + "所要金額　" + String(fare) + "円")
         print(departureTime)
-        self.planLines.append(startAddress + "\n" + "出発時刻　" + departureTime + "　所要金額　" + String(fare) + "円")
+        self.planLines.append(/*startAddress + "\n" + */"出発時刻　" + departureTime + "　所要金額　" + String(fare) + "円")
 //        self.planLines.append(startAddress)
         
         for (_, subJson):(String, JSON) in json["routes"][0]["legs"][0]["steps"] {
@@ -114,7 +116,8 @@ class PlanDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
         
-        self.planLines.append(endAddress + "\n" + "到着時刻　" + arrivalTime)
+        self.planLines.append(/*endAddress + "\n" + */"到着時刻　" + arrivalTime)
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
