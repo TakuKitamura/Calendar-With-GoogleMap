@@ -105,6 +105,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         // datePickerを設定（デフォルトでは位置は画面上部）する.
         self.datePicker.frame = CGRect(x:0, y:400, width:self.view.frame.width, height:200)
         self.datePicker.timeZone = NSTimeZone.local
+        self.datePicker.locale = Locale(identifier: "ja_JP")
         self.datePicker.backgroundColor = UIColor.white
         self.datePicker.layer.cornerRadius = 5.0
         self.datePicker.layer.shadowOpacity = 0.5
@@ -217,6 +218,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         // セルがタップされた時の処理
         
         if(indexPath.row == 0) {
+            planTitleField.resignFirstResponder()
             self.isSelectedStart = true
             self.datePicker.isHidden = false
         }
