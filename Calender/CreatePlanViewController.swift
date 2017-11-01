@@ -7,8 +7,6 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     var locationManager: CLLocationManager!
     
-    private var tool = Tool()
-    
     private var queryParams: Dictionary<String, String> = [:]
 
     private var tableView: UITableView!
@@ -40,9 +38,11 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         
         self.startSelectedDate = dateFormatter.string(from: Date())
-
+        self.queryParams["arrival_time"] = self.startSelectedDate.replacingOccurrences(of: " ", with: ",")
+        print("arrival_time" + self.queryParams["arrival_time"]!)
         
         // サイズ設定
         planTitleField.frame.size.width = self.view.frame.width - 10
@@ -174,8 +174,19 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
             separatorView.backgroundColor = UIColor.lightGray
             cell.addSubview(separatorView)
             
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+            
+            let displaySelectedDateDate = dateFormatter.date(from: self.startSelectedDate)
+            
+            dateFormatter.timeZone = TimeZone.current
+            
+            let displaySelectedDateStr = dateFormatter.string(from: displaySelectedDateDate!)
+            
             cell.textLabel?.text = "開始"
-                cell.detailTextLabel?.text = self.startSelectedDate
+            cell.detailTextLabel?.text = displaySelectedDateStr
 
         }
         
@@ -230,6 +241,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         let dateFormatter: DateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         
         // 日付をフォーマットに則って取得.
         let mySelectedDate: String = dateFormatter.string(from: sender.date) as String
@@ -237,22 +249,8 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         if(isSelectedStart) {
             self.startSelectedDate = mySelectedDate as String
             
-            func localToUTC(date:String) -> String {
-                let dateFormatter = DateFormatter()
-                dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-                dateFormatter.calendar = NSCalendar.current
-                dateFormatter.timeZone = TimeZone.current
-                
-                let dt = dateFormatter.date(from: date)
-                dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-                
-                return dateFormatter.string(from: dt!)
-            }
-            
-            
-            self.queryParams["arrival_time"] = localToUTC(date: self.startSelectedDate).replacingOccurrences(of: " ", with: ",")
+            self.queryParams["arrival_time"] = self.startSelectedDate.replacingOccurrences(of: " ", with: ",")
+            print("arrival_time" + self.queryParams["arrival_time"]!)
             //        tool.updateArrivalTime(arrival_time: self.startSelectedDate)
         }
         
@@ -265,13 +263,15 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
     }
     
     @objc func savePlanButton(){
+        
+        let tool = Tool()
 
         self.datePicker.isHidden = true
         
         self.queryParams["mode"] = "transit"
         
         let createUrl = tool.createRequestUrl(queryParams: queryParams)
-        
+        print("createUrl " + createUrl)
         let url = URL(string: createUrl)!
         print(url)
         
@@ -284,7 +284,7 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
                 if let dat = data {
                     if let stringJson = String(data: dat, encoding: .utf8) {
                         
-                        let jsonJson = self.tool.returnParseJson(json: stringJson)
+                        let jsonJson = tool.returnParseJson(json: stringJson)
                         
                         let jsonStatus = jsonJson["status"].stringValue
                         
@@ -374,6 +374,20 @@ class CreatePlanViewController: UIViewController, UITextFieldDelegate, UITableVi
         self.datePicker.resignFirstResponder()
         self.datePicker.isHidden = !self.datePicker.isHidden
     }
+    
+//    func localToUTC(date:String) -> String {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+//        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+//        dateFormatter.calendar = NSCalendar.current
+//        dateFormatter.timeZone = TimeZone.current
+//        
+//        let dt = dateFormatter.date(from: date)
+//        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+//        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+//        
+//        return dateFormatter.string(from: dt!)
+//    }
     
     func donePressed(){
 

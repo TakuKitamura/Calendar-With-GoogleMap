@@ -13,7 +13,7 @@
 		DA1E41651F90AC74005F4D33 /* PlanTables.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1E41641F90AC74005F4D33 /* PlanTables.swift */; };
 		DA3353371FA205AD007CFB7E /* PlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3353361FA205AD007CFB7E /* PlanDetailViewController.swift */; };
 		DA374C281F70B0EE002F048C /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA374C271F70B0EE002F048C /* SwiftyJSON.framework */; };
-		DA8C2AD21F657211009570C3 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8C2AD11F657211009570C3 /* PlanViewController.swift */; };
+		DA5B06C71FA94A29007B0752 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B06C61FA94A29007B0752 /* PlanViewController.swift */; };
 		DAAC66AF1FA49D8400808A03 /* BKC.gpx in Resources */ = {isa = PBXBuildFile; fileRef = DAAC66AE1FA49D8400808A03 /* BKC.gpx */; };
 		DAC0C5991F5AD01900642F1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0C5981F5AD01900642F1B /* AppDelegate.swift */; };
 		DAC0C59B1F5AD01900642F1B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0C59A1F5AD01900642F1B /* ViewController.swift */; };
@@ -58,7 +58,7 @@
 		DA1E41641F90AC74005F4D33 /* PlanTables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanTables.swift; sourceTree = "<group>"; };
 		DA3353361FA205AD007CFB7E /* PlanDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailViewController.swift; sourceTree = "<group>"; };
 		DA374C271F70B0EE002F048C /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../Library/Developer/Xcode/DerivedData/Calender-egfsrijhnslcolghbgfotkrjnaoi/Build/Products/Debug-iphonesimulator/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
-		DA8C2AD11F657211009570C3 /* PlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
+		DA5B06C61FA94A29007B0752 /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
 		DAAC66AE1FA49D8400808A03 /* BKC.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BKC.gpx; sourceTree = "<group>"; };
 		DAC0C5951F5AD01900642F1B /* Calender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAC0C5981F5AD01900642F1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 				DAC0C5981F5AD01900642F1B /* AppDelegate.swift */,
 				DAC0C59A1F5AD01900642F1B /* ViewController.swift */,
 				DADADA881F6CD309007CE10D /* CreatePlanViewController.swift */,
-				DA8C2AD11F657211009570C3 /* PlanViewController.swift */,
+				DA5B06C61FA94A29007B0752 /* PlanViewController.swift */,
 				DA3353361FA205AD007CFB7E /* PlanDetailViewController.swift */,
 				DADADAB41F6E45E9007CE10D /* Tool.swift */,
 				DAC0C5C61F5AD12A00642F1B /* DateManager.swift */,
@@ -472,12 +472,12 @@
 				DADADA891F6CD309007CE10D /* CreatePlanViewController.swift in Sources */,
 				DAC0C59B1F5AD01900642F1B /* ViewController.swift in Sources */,
 				DAC0C5C71F5AD12A00642F1B /* DateManager.swift in Sources */,
+				DA5B06C71FA94A29007B0752 /* PlanViewController.swift in Sources */,
 				DAF9E3C71F9355C100DCA205 /* DB.swift in Sources */,
 				DAC0C5991F5AD01900642F1B /* AppDelegate.swift in Sources */,
 				DA1E41651F90AC74005F4D33 /* PlanTables.swift in Sources */,
 				DAC0C5CB1F5AD17500642F1B /* CollectionReusableView.swift in Sources */,
 				DAC0C5C91F5AD15100642F1B /* Calendar.swift in Sources */,
-				DA8C2AD21F657211009570C3 /* PlanViewController.swift in Sources */,
 				DADADAB51F6E45E9007CE10D /* Tool.swift in Sources */,
 				DA3353371FA205AD007CFB7E /* PlanDetailViewController.swift in Sources */,
 			);
