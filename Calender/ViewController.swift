@@ -50,7 +50,16 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
     private var showedYear = Calendar.current.dateComponents([.year], from:selectedDate as Date).year!
     private var showedMonth = Calendar.current.dateComponents([.month], from:selectedDate as Date).month!
+    
+    private var selectedDay = 1
+    
+    
 //    private var showedDay = Calendar.current.dateComponents([.day], from:selectedDate as Date).day!
+    
+    private var originLat = ""
+    private var originLng = ""
+    
+    private var queryParams: Dictionary<String, String> = [:]
 
 
 
@@ -527,12 +536,81 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
 
     @objc func changePlaningPage(sender: Any) {
-        // 遷移するViewを定義する.
+        
+        let realm = try! Realm()
+        
+        let tool = Tool()
+        
         let planViewController = PlanViewController()
         
-        let selectedDay = (sender as AnyObject).tag
-        planViewController.initSelectedDay(showedYear: self.showedYear, showedMonth: self.showedMonth,  selectedDay: selectedDay!)
-        self.navigationController?.pushViewController(planViewController, animated: false)
+        self.selectedDay = (sender as AnyObject).tag
+        planViewController.initSelectedDay(showedYear: self.showedYear, showedMonth: self.showedMonth,  selectedDay: self.selectedDay)
+        
+        let displayPlan = realm.objects(Plan.self)
+            .filter(self.returnDatePredicate())
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        dateFormatter.dateFormat = "yyyy-MM-dd,HH:mm"
+        
+        if(displayPlan.count > 0) {
+            for planTable in displayPlan {
+                self.queryParams["arrival_time"] = dateFormatter.string(from: planTable.arrival_time)
+                self.queryParams["destination_lat"] = String(planTable.destination_lat)
+                self.queryParams["destination_lng"] = String(planTable.destination_lng)
+                self.queryParams["mode"] = planTable.mode
+                self.queryParams["origin_lat"] = self.originLat
+                self.queryParams["origin_lng"] = self.originLng
+                print("self.queryParamsarrival_time " + self.queryParams["arrival_time"]!)
+                
+                let createUrl = tool.createRequestUrl(queryParams: queryParams)
+                print(createUrl)
+                let url = URL(string: createUrl)!
+                
+                tool.getRequest(url: url, completionHandler: { data, response, error in
+                    
+                    if let dat = data {
+                        if let stringJson = String(data: dat, encoding: .utf8) {
+                            
+                            let jsonJson = tool.returnParseJson(json: stringJson)
+                            
+                            let jsonStatus = jsonJson["status"].stringValue
+                            
+                            if(jsonStatus == "OK"){
+                                
+                                let db = DB()
+                                DispatchQueue.main.async {
+                                    db.updatePlan(id: planTable.id, json: stringJson, title: planTable.title, queryParams: self.queryParams)
+                                    self.navigationController?.pushViewController(planViewController, animated: false)
+                                }
+                            }
+                                
+                            else {
+                                print("ZERO_RESULTS")
+                            }
+                            
+                        } else {
+                            print("not a valid UTF-8 sequence")
+                        }
+                    }
+                    
+                    if let err = error {
+                        print(err)
+                    }
+                })
+                print(planTable.id)
+                print(self.queryParams)
+            }
+        }
+        
+        else {
+          self.navigationController?.pushViewController(planViewController, animated: false)
+        }
+        // 遷移するViewを定義する.
+        
+//        self.navigationController?.pushViewController(planViewController, animated: false)
 
     }
 
@@ -554,6 +632,34 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //セルの水平方向のマージンを設定
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return cellMargin
+    }
+    
+    func returnNowPos() -> (originLat: String, originLng: String) {
+        return (self.originLat, self.originLng)
+    }
+    
+    func returnDatePredicate() -> NSPredicate {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = TimeZone.current
+        
+        let selectedDate = dateFormatter.date(from: String(self.showedYear) + "-" + String(self.showedMonth) + "-" + String(self.selectedDay))!
+        
+        
+        let startBaseDate = dateFormatter.string(from: selectedDate)
+        
+        let startDate = dateFormatter.date(from: startBaseDate)
+        
+        let finishBaseDate = dateFormatter.string(from: selectedDate + TimeInterval(60 * 60 * 24))
+        
+        //        startDateの24時間後
+        let finishDate = dateFormatter.date(from: finishBaseDate)
+        //        let finishDate = dateFormatter.string(from: self.selectedDate + TimeInterval(60 * 60 * 24))
+        
+        let predicate = NSPredicate(format: "(%@ <= departure_time  AND departure_time < %@) AND display = true", startDate! as CVarArg, finishDate! as CVarArg)
+        
+        return predicate
     }
 
 }
@@ -581,8 +687,24 @@ extension ViewController: CLLocationManagerDelegate {
             break
         case .authorizedWhenInUse:
             print("起動時のみ、位置情報の取得が許可されています。")
+            locationManager.startUpdatingLocation()
             // 位置情報取得の開始処理
             break
         }
     }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        for location in locations {
+            print("緯度:\(location.coordinate.latitude) 経度:\(location.coordinate.longitude) 取得時刻:\(location.timestamp.description)")
+            
+            self.originLat = String(location.coordinate.latitude)
+            self.originLng = String(location.coordinate.longitude)
+            print(self.originLat)
+            print(self.originLng)
+            //            tool.updateOriginLat(origin_lat: String(location.coordinate.latitude))
+            //            tool.updateOriginLng(origin_lng: String(location.coordinate.longitude))
+        }
+    }
+    
 }

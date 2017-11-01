@@ -1,13 +1,11 @@
 import UIKit
 import SwiftyJSON
 import RealmSwift
-import CoreLocation
+//import CoreLocation
 
 class PlanViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var locationManager: CLLocationManager!
-    
-    private var queryParams: Dictionary<String, String> = [:]
+//    var locationManager: CLLocationManager!
     
     private var showedYear = 2000
     private var showedMonth = 01
@@ -19,19 +17,35 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     private var plans: [JSON] = []
     
+//    private var queryParams: Dictionary<String, String>
+    
+//    private var originLat = ""
+//    private var originLng = ""
+    
     let statusBarHeight = UIApplication.shared.statusBarFrame.height
+    
+//    init(originLat: String, originLng: String) {
+//        super.init(nibName: nil, bundle: nil)
+//        self.originLat = originLat
+//        self.originLng = originLng
+//    }
+//
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        locationManager = CLLocationManager() // インスタンスの生成
-        locationManager.delegate = self // CLLocationManagerDelegateプロトコルを実装するクラスを指定する
-        
-        locationManager.startUpdatingLocation()
+//        locationManager = CLLocationManager() // インスタンスの生成
+//        locationManager.delegate = self // CLLocationManagerDelegateプロトコルを実装するクラスを指定する
+//
+//        locationManager.startUpdatingLocation()
         
         print("お")
         
         // Do any additional setup after loading the view, typically from a nib.
+        
         
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -41,66 +55,64 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         ///
         
-        let realm = try! Realm()
-        
-        let tool = Tool()
-        
-        let displayPlan = realm.objects(Plan.self)
-            .filter(self.returnDatePredicate())
-        
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        dateFormatter.dateFormat = "yyyy-MM-dd,HH:mm"
-        
-        if(displayPlan.count > 0) {
-            for planTable in displayPlan {
-                self.queryParams["arrival_time"] = dateFormatter.string(from: planTable.arrival_time)
-                self.queryParams["destination_lat"] = String(planTable.destination_lat)
-                self.queryParams["destination_lng"] = String(planTable.destination_lng)
-                self.queryParams["mode"] = planTable.mode
-                self.queryParams["origin_lat"] = "34.982076"
-                self.queryParams["origin_lng"] = "135.963717"
-                print("self.queryParamsarrival_time " + self.queryParams["arrival_time"]!)
-                
-                let createUrl = tool.createRequestUrl(queryParams: queryParams)
-                print(createUrl)
-                let url = URL(string: createUrl)!
-                
-                tool.getRequest(url: url, completionHandler: { data, response, error in
-                    
-                    if let dat = data {
-                        if let stringJson = String(data: dat, encoding: .utf8) {
-                            
-                            let jsonJson = tool.returnParseJson(json: stringJson)
-                            
-                            let jsonStatus = jsonJson["status"].stringValue
-                            
-                            if(jsonStatus == "OK"){
-                                
-                                let db = DB()
-                                DispatchQueue.main.async {
-                                    db.updatePlan(id: planTable.id, json: stringJson, title: planTable.title, queryParams: self.queryParams)
-                                }
-                            }
-                                
-                            else {
-                                print("ZERO_RESULTS")
-                            }
-                            
-                        } else {
-                            print("not a valid UTF-8 sequence")
-                        }
-                    }
-                    
-                    if let err = error {
-                        print(err)
-                    }
-                })
-                print(planTable.id)
-                print(self.queryParams)
-            }
-            
-            
-        }
+//        let realm = try! Realm()
+//
+//        let tool = Tool()
+//
+//        let displayPlan = realm.objects(Plan.self)
+//            .filter(self.returnDatePredicate())
+//
+//        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+//        dateFormatter.dateFormat = "yyyy-MM-dd,HH:mm"
+//
+//        if(displayPlan.count > 0) {
+//            for planTable in displayPlan {
+//                self.queryParams["arrival_time"] = dateFormatter.string(from: planTable.arrival_time)
+//                self.queryParams["destination_lat"] = String(planTable.destination_lat)
+//                self.queryParams["destination_lng"] = String(planTable.destination_lng)
+//                self.queryParams["mode"] = planTable.mode
+//                self.queryParams["origin_lat"] = self.originLat
+//                self.queryParams["origin_lng"] = self.originLng
+//                print("self.queryParamsarrival_time " + self.queryParams["arrival_time"]!)
+//
+//                let createUrl = tool.createRequestUrl(queryParams: queryParams)
+//                print(createUrl)
+//                let url = URL(string: createUrl)!
+//
+//                tool.getRequest(url: url, completionHandler: { data, response, error in
+//
+//                    if let dat = data {
+//                        if let stringJson = String(data: dat, encoding: .utf8) {
+//
+//                            let jsonJson = tool.returnParseJson(json: stringJson)
+//
+//                            let jsonStatus = jsonJson["status"].stringValue
+//
+//                            if(jsonStatus == "OK"){
+//
+//                                let db = DB()
+//                                DispatchQueue.main.async {
+//                                    db.updatePlan(id: planTable.id, json: stringJson, title: planTable.title, queryParams: self.queryParams)
+//                                }
+//                            }
+//
+//                            else {
+//                                print("ZERO_RESULTS")
+//                            }
+//
+//                        } else {
+//                            print("not a valid UTF-8 sequence")
+//                        }
+//                    }
+//
+//                    if let err = error {
+//                        print(err)
+//                    }
+//                })
+//                print(planTable.id)
+//                print(self.queryParams)
+//            }
+//        }
         
         
         
@@ -202,7 +214,8 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let departureTime = dateFormatter.string(from: item.departure_time)
         let actualArrivalTime = dateFormatter.string(from: item.actual_arrival_time)
-        cell.detailTextLabel?.text = "出発　" + departureTime + "　" + "時刻　" + actualArrivalTime
+
+        cell.detailTextLabel?.text = "出発　" + departureTime + "　" + "到着　" + actualArrivalTime
         
         return cell
     }
@@ -271,18 +284,18 @@ class PlanViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 }
 
-extension PlanViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        for location in locations {
-            print("緯度:\(location.coordinate.latitude) 経度:\(location.coordinate.longitude) 取得時刻:\(location.timestamp.description)")
-            
-            self.queryParams["origin_lat"] = String(location.coordinate.latitude)
-            self.queryParams["origin_lng"] = String(location.coordinate.longitude)
-            //            tool.updateOriginLat(origin_lat: String(location.coordinate.latitude))
-            //            tool.updateOriginLng(origin_lng: String(location.coordinate.longitude))
-        }
-    }
-}
+//extension PlanViewController: CLLocationManagerDelegate {
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//
+//        for location in locations {
+//            print("緯度:\(location.coordinate.latitude) 経度:\(location.coordinate.longitude) 取得時刻:\(location.timestamp.description)")
+//
+//            self.queryParams["origin_lat"] = String(location.coordinate.latitude)
+//            self.queryParams["origin_lng"] = String(location.coordinate.longitude)
+//            //            tool.updateOriginLat(origin_lat: String(location.coordinate.latitude))
+//            //            tool.updateOriginLng(origin_lng: String(location.coordinate.longitude))
+//        }
+//    }
+//}
 
 
