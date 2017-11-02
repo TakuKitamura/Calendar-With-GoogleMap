@@ -65,6 +65,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        let dropDB: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.stop, target: self, action: #selector(ViewController.dropDB))
+        
+        self.navigationItem.setRightBarButtonItems([dropDB], animated: false)
+        
         // データベース初期化
 //        if let fileURL = Realm.Configuration.defaultConfiguration.fileURL {
 //            try! FileManager.default.removeItem(at: fileURL)
@@ -132,6 +136,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         self.view.addSubview(beforeMonthButton)
         self.view.addSubview(nextMonthButton)
 
+    }
+    
+    @objc func dropDB(){
+        if let fileURL = Realm.Configuration.defaultConfiguration.fileURL {
+            try! FileManager.default.removeItem(at: fileURL)
+        }
     }
 
     @objc func changeBeforeMonth(sender: Any) {
