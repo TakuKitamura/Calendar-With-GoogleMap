@@ -19,8 +19,8 @@ class Tool {
 
     func createRequestUrl(queryParams: Dictionary<String, String>) -> String{
         
-        var url = "http://58.5.31.146:5969/api/v1/?"
-//        var url = "http://localhost:3000/api/v1/?"
+//        var url = "http://58.5.31.146:5969/api/v1/?"
+        var url = "http://localhost:3000/api/v1/?"
 
         var queryParamsCount = queryParams.count
 

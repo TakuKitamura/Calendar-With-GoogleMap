@@ -73,11 +73,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 //        if let fileURL = Realm.Configuration.defaultConfiguration.fileURL {
 //            try! FileManager.default.removeItem(at: fileURL)
 //        }
-        
+//
         locationManager = CLLocationManager() // インスタンスの生成
         locationManager.delegate = self // CLLocationManagerDelegateプロトコルを実装するクラスを指定する
         
-        self.title = "カレンダー"
+        self.title = "ver. 0.01"
 
         self.automaticallyAdjustsScrollViewInsets = false
 
