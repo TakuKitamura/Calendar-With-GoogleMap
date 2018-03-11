@@ -7,22 +7,22 @@ import GoogleMaps
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
+
     var planNavigationController: UINavigationController?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        GMSPlacesClient.provideAPIKey("AIzaSyDndUePQ1TWVfNQevNk6GEENmRtmpJUiHM")
-        GMSServices.provideAPIKey("AIzaSyDndUePQ1TWVfNQevNk6GEENmRtmpJUiHM")
-        
+
+        GMSPlacesClient.provideAPIKey("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+        GMSServices.provideAPIKey("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+
         let planNavigationController = UINavigationController(rootViewController: ViewController())
         window = UIWindow(frame: UIScreen.main.bounds)
         window!.backgroundColor = UIColor.white
         window!.makeKeyAndVisible()
         window!.rootViewController = planNavigationController
         // Override point for customization after application launch.
-        
+
         return true
     }
 
@@ -50,4 +50,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-
